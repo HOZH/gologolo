@@ -7,497 +7,182 @@ var GraphQLID = require("graphql").GraphQLID;
 var GraphQLString = require("graphql").GraphQLString;
 var GraphQLInt = require("graphql").GraphQLInt;
 var GraphQLDate = require("graphql-date");
-// var LogoModel = require("../models/Logo");
+var { LogoModel } = require("../models/Logo");
 var UserModel = require("../models/User");
+const { makeExecutableSchema } = require("apollo-server");
+const { DateTimeResolver } = require("graphql-scalars");
+var { LogoSchema } = require("../models/Logo");
 
-var textType = new GraphQLObjectType({
-  name: "text",
-  fields: function () {
-    return {
-      _id: {
-        type: GraphQLString,
-      },
-      text: {
-        type: GraphQLString,
-      },
-      color: {
-        type: GraphQLString,
-      },
-      fontSize: {
-        type: GraphQLInt,
-      },
-      backgroundColor: {
-        type: GraphQLString,
-      },
-      borderColor: {
-        type: GraphQLString,
-      },
-      borderRadius: {
-        type: GraphQLInt,
-      },
-      borderThickness: {
-        type: GraphQLInt,
-      },
-      margin: {
-        type: GraphQLInt,
-      },
-      padding: {
-        type: GraphQLInt,
-      },
-      zOrder: {
-        type: GraphQLInt,
-      },
-      xPosition: {
-        type: GraphQLInt,
-      },
-      yPosition: {
-        type: GraphQLInt,
-      },
-    };
+const typeDefs = `
+
+scalar DateTime
+type Image {
+
+  url:String
+  alt:String
+  width:Int
+  height:Int
+  zOrder:Int
+  xPosition:Int
+  yPosition:Int
+  uid:String
+}
+type Text {
+  uid:String
+  text: String
+  color: String
+  fontSize:Int
+  backgroundColor:String
+  borderRadius:Int
+  borderThickness :Int
+  borderColor: String
+  margin : Int
+  padding : Int
+  zOrder: Int
+  xPosition: Int
+  yPosition: Int
+  
+}
+
+input ImageInput {
+  url:String!
+  width:Int!
+  height:Int!
+  alt:String
+  uid:String!
+  zOrder:Int
+  xPosition:Int
+  yPosition:Int
+
+
+}
+
+input TextInput {
+  uid: String!
+  text: String!
+  color: String
+  fontSize:Int
+  backgroundColor:String
+  borderRadius:Int
+  borderThickness :Int
+  borderColor: String
+  margin : Int
+  padding : Int
+  zOrder: Int
+  xPosition: Int
+  yPosition: Int
+  
+}
+  type Logo {
+    _id: String
+    owner:String
+    images: [Image]
+    texts:[Text]
+    width: Int
+    height: Int
+    lastUpdate : DateTime
+ }
+
+ type myBoolean{
+   result: Boolean!
+ }
+
+type Query {
+    logos: [Logo]
+    logo(id: String!): Logo
+  }
+
+type Mutation{
+
+    addLogo(owner:String!,width:Int!,height:Int!, images:[ImageInput],texts:[TextInput]): Logo
+    updateLogo(id:String!,owner:String!,width:Int!,height:Int!, images:[ImageInput],texts:[TextInput]): Logo
+    removeLogo(id:String!):Logo
+    clearLogos:myBoolean
+}
+`;
+
+const resolvers = {
+  // DateTime: DateTimeResolver,
+  Query: {
+    logos: () => LogoModel.find().sort({ lastUpdate: -1 }).exec(),
+
+    logo: (_, { id }) => {
+      console.log(id);
+      return LogoModel.findById(id).exec();
+    },
   },
-});
 
-var imageType = new GraphQLObjectType({
-  name: "image",
-  fields: function () {
-    return {
-      url: {
-        type: GraphQLString,
-      },
-      alt: {
-        type: GraphQLString,
-      },
-      width: {
-        type: GraphQLInt,
-      },
-      height: {
-        type: GraphQLInt,
-      },
-      zOrder: {
-        type: GraphQLInt,
-      },
-      xPosition: {
-        type: GraphQLInt,
-      },
-      yPosition: {
-        type: GraphQLInt,
-      },
-    };
-  },
-});
+  Mutation: {
+    addLogo: (_, params) => {
+      const logoModel = new LogoModel(params);
 
-var logoType = new GraphQLObjectType({
-  name: "logo",
-  fields: function () {
-    return {
-      _id: {
-        type: GraphQLString,
-      },
-      texts: {
-        type: new GraphQLList(textType),
-      },
-      images: {
-        type: new GraphQLList(imageType),
-      },
-      width: {
-        type: GraphQLInt,
-      },
-      height: {
-        type: GraphQLInt,
-      },
-      lastUpdate: {
-        type: GraphQLDate,
-      },
-    };
-  },
-});
-
-var userType = new GraphQLObjectType({
-  name: "user",
-  fields: function () {
-    return {
-      _id: {
-        type: GraphQLString,
-      },
-      email: {
-        type: GraphQLString,
-      },
-      username: {
-        type: GraphQLString,
-      },
-      password: {
-        type: GraphQLString,
-      },
-      firstname: {
-        type: GraphQLString,
-      },
-      lastname: {
-        type: GraphQLString,
-      },
-      age: {
-        type: GraphQLInt,
-      },
-      logos: {
-        type: new GraphQLList(logoType),
-      },
-    };
-  },
-});
-var textInputType = new GraphQLInputObjectType({
-  name: "textInput",
-  fields: function () {
-    return {
-      _id: {
-        type: GraphQLString,
-      },
-      text: {
-        type: GraphQLString,
-      },
-      color: {
-        type: GraphQLString,
-      },
-      fontSize: {
-        type: GraphQLInt,
-      },
-      backgroundColor: {
-        type: GraphQLString,
-      },
-      borderColor: {
-        type: GraphQLString,
-      },
-      borderRadius: {
-        type: GraphQLInt,
-      },
-      borderThickness: {
-        type: GraphQLInt,
-      },
-      margin: {
-        type: GraphQLInt,
-      },
-      padding: {
-        type: GraphQLInt,
-      },
-      zOrder: {
-        type: GraphQLInt,
-      },
-      xPosition: {
-        type: GraphQLInt,
-      },
-      yPosition: {
-        type: GraphQLInt,
-      },
-    };
-  },
-});
-
-var imageInputType = new GraphQLInputObjectType({
-  name: "imageInput",
-  fields: function () {
-    return {
-      url: {
-        type: GraphQLString,
-      },
-      alt: {
-        type: GraphQLString,
-      },
-      width: {
-        type: GraphQLInt,
-      },
-      height: {
-        type: GraphQLInt,
-      },
-      zOrder: {
-        type: GraphQLInt,
-      },
-      xPosition: {
-        type: GraphQLInt,
-      },
-      yPosition: {
-        type: GraphQLInt,
-      },
-    };
-  },
-});
-var logoInputType = new GraphQLInputObjectType({
-  name: "logoInput",
-  fields: function () {
-    return {
-      _id: {
-        type: GraphQLString,
-      },
-      texts: {
-        type: new GraphQLList(textInputType),
-      },
-      images: {
-        type: new GraphQLList(imageInputType),
-      },
-      width: {
-        type: GraphQLInt,
-      },
-      height: {
-        type: GraphQLInt,
-      },
-      lastUpdate: {
-        type: GraphQLDate,
-      },
-    };
-  },
-});
-
-
-var queryType = new GraphQLObjectType({
-  name: "Query",
-
-  fields: function () {
-    return {
-      users: {
-        type: new GraphQLList(userType),
-        resolve: function () {
-          const users = UserModel.find().exec();
-          if (!users) {
-            throw new Error("Error");
-          }
-          return users;
+      const newLogo = logoModel.save();
+      if (!newLogo) {
+        throw new Error("Error");
+      }
+      console.log(newLogo)
+      return newLogo;
+    },
+    updateLogo: (_, params) => {
+      // const logoModel = new LogoModel(params);
+      // console.log(logoModel)
+      return LogoModel.findByIdAndUpdate(
+        params.id,
+        {
+          texts: params.texts,
+          owner:params.owner,
+          images:params.images,
+          width:params.width,
+          height:params.height,
+          lastUpdate: new Date(),
         },
-      },
+        function (err) {
+          if (err) return next(err);
+        }
+      );
+    
+    },
 
-      // logos: {
-      //   type: new GraphQLList(logoType),
-      //   resolve: function () {
-      //     const logos = LogoModel.find().sort({ lastUpdate: -1 }).exec();
-      //     if (!logos) {
-      //       throw new Error("Error");
-      //     }
-      //     return logos;
-      //   },
-      // },
-      user: {
-        type: userType,
-        args: {
-          id: {
-            name: "_id",
-            type: GraphQLString,
-          },
-        },
-        resolve: function (root, params) {
-          const userDetails = UserModel.findById(params.id).exec();
-          if (!userDetails) {
-            throw new Error("Error");
-          }
-          return userDetails;
-        },
-      },
-    };
-  },
-});
-
-var mutation = new GraphQLObjectType({
-  name: "Mutation",
-  fields: function () {
-    return {
-      addUser: {
-        type: userType,
-        args:{
-       
-          email: {
-            type: GraphQLString,
-          },
-          username: {
-            type: GraphQLString,
-          },
-          password: {
-            type: GraphQLString,
-          },
-          firstname: {
-            type: GraphQLString,
-          },
-          lastname: {
-            type: GraphQLString,
-          },
-          age: {
-            type: GraphQLInt,
-          },
-          logos:{
-            type:logoInputType
-          }
-        
-        },
-        resolve: function (root, params) {
-          console.log(params);
-          const userModel = new UserModel(params);
-          const newUser = userModel.save();
-          if (!newUser) {
-            throw new Error("Error");
-          }
-          return newUser;
-        },
-      },
-      updateUser: {
-        type: userType,
-        args: {
-          id: {
-            name: "id",
-            type: new GraphQLNonNull(GraphQLString),
-          },
-          email: {
-            type: GraphQLString,
-          },
-          username: {
-            type: GraphQLString,
-          },
-          password: {
-            type: GraphQLString,
-          },
-          firstname: {
-            type: GraphQLString,
-          },
-          lastname: {
-            type: GraphQLString,
-          },
-          age: {
-            type: GraphQLInt,
-          },
-          logos:{
-            type: new GraphQLList(logoInputType)
-          }
-       
-        },
-        resolve(root, params) {
-          console.log(params)
-          return UserModel.findByIdAndUpdate(
-            params.id,
-            {
-              email:params.email,
-             username:params.username,
-             passworrd:params.password,
-             firstname:params.firstname,
-             lastname: params.lastname,
-             age: params.age
-            
-            },
-            function (err) {
-              if (err) return next(err);
-            }
-          );
-        },
-      },
+    removeLogo: (_, params)=>{
+    
      
+        const remLogo = LogoModel.findByIdAndRemove(params.id).exec();
+        if (!remLogo) {
+          throw new Error("Error");
+        }
+        return remLogo;
+      
+    },
 
-      addLogo: {
-        type: logoType,
-        args: {
-          text: {
-            type: new GraphQLNonNull(GraphQLString),
-          },
-          color: {
-            type: new GraphQLNonNull(GraphQLString),
-          },
-          fontSize: {
-            type: new GraphQLNonNull(GraphQLInt),
-          },
-          backgroundColor: {
-            type: new GraphQLNonNull(GraphQLString),
-          },
-          borderColor: {
-            type: new GraphQLNonNull(GraphQLString),
-          },
+    clearLogos: ()=>{
 
-          borderThickness: {
-            type: new GraphQLNonNull(GraphQLInt),
-          },
-          borderRadius: {
-            type: new GraphQLNonNull(GraphQLInt),
-          },
-          margin: {
-            type: new GraphQLNonNull(GraphQLInt),
-          },
-          padding: {
-            type: new GraphQLNonNull(GraphQLInt),
-          },
-        },
-        resolve: function (root, params) {
-          // console.log(params);
-          const logoModel = new LogoModel(params);
-          const newLogo = logoModel.save();
-          if (!newLogo) {
-            throw new Error("Error");
-          }
-          return newLogo;
-        },
-      },
-      updateLogo: {
-        type: logoType,
-        args: {
-          id: {
-            name: "id",
-            type: new GraphQLNonNull(GraphQLString),
-          },
-          text: {
-            type: new GraphQLNonNull(GraphQLString),
-          },
-          color: {
-            type: new GraphQLNonNull(GraphQLString),
-          },
-          fontSize: {
-            type: new GraphQLNonNull(GraphQLInt),
-          },
-          backgroundColor: {
-            type: new GraphQLNonNull(GraphQLString),
-          },
-          borderColor: {
-            type: new GraphQLNonNull(GraphQLString),
-          },
-          borderRadius: {
-            type: new GraphQLNonNull(GraphQLInt),
-          },
-          borderThickness: {
-            type: new GraphQLNonNull(GraphQLInt),
-          },
-          margin: {
-            type: new GraphQLNonNull(GraphQLInt),
-          },
-          padding: {
-            type: new GraphQLNonNull(GraphQLInt),
-          },
-        },
-        resolve(root, params) {
-          return LogoModel.findByIdAndUpdate(
-            params.id,
-            {
-              text: params.text,
-              color: params.color,
-              fontSize: params.fontSize,
-              backgroundColor: params.backgroundColor,
-              borderColor: params.borderColor,
-              borderRadius: params.borderRadius,
-              borderThickness: params.borderThickness,
-              margin: params.margin,
-              padding: params.padding,
-              lastUpdate: new Date(),
-            },
-            function (err) {
-              if (err) return next(err);
-            }
-          );
-        },
-      },
-      removeLogo: {
-        type: logoType,
-        args: {
-          id: {
-            type: new GraphQLNonNull(GraphQLString),
-          },
-        },
-        resolve(root, params) {
-          const remLogo = LogoModel.findByIdAndRemove(params.id).exec();
-          if (!remLogo) {
-            throw new Error("Error");
-          }
-          return remLogo;
-        },
-      },
-    };
+      const remLogos = LogoModel.deleteMany({}).exec()
+      console.log(remLogos)
+      let myBoolean ={result:false}
+        if (!remLogos) {
+        throw new Error("Error");      
+      }
+
+      console.log(remLogos)
+      myBoolean.result = true
+
+      
+      return myBoolean;
+    
+      
+// const remLogo = LogoModel.findByIdAndRemove(params.id).exec();
+      // if (!remLogo) {
+      //   throw new Error("Error");      
+      // }
+      // return remLogo;
+    
   },
+  },
+};
+
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
 });
 
-module.exports = new GraphQLSchema({ query: queryType, mutation: mutation });
+module.exports = schema;

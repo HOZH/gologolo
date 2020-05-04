@@ -1,0 +1,86 @@
+Queries:
+query all logos:
+query{
+  logos{
+    _id,owner,images{url,width,height,alt,uid,zOrder,xPosition,yPosition}
+    ,texts{uid,text,color,fontSize,backgroundColor,borderRadius,
+    borderThickness,borderColor,
+    margin,
+    padding,zOrder,xPosition,yPosition},lastUpdate
+  }
+  }
+
+query logo by id:
+query{
+  logo(id: String!){
+    owner,images{url,width,height,alt,uid,zOrder,xPosition,yPosition}
+    ,texts{uid,text,color,fontSize,backgroundColor,borderRadius,
+    borderThickness,borderColor,
+    margin,
+    padding,zOrder,xPosition,yPosition},lastUpdate
+  }
+  }
+Matations:
+
+add logo:
+
+mutation {
+  addLogo(owner:String!,width:Int!,height:Int!,
+  images:[{url:String!,width:Int!,height:Int!,alt:String!,uid:String!,zOrder:Int!,xPosition:String!,yPosition:String!}],
+  texts:[{text:String!,uid:String!,
+  color:String!,fontSize:Int!,backgroundColor:String!,borderRadius:Int!,
+    borderThickness:Int!,borderColor:String!,
+    margin:Int!,
+    padding:Int!,zOrder:Int!,xPosition:Int!,yPosition:Int!}]){
+    lastUpdate
+  }
+}
+
+update logo by id:
+mutation {
+  updateLogo(id:String!, owner:String!,width:Int!,height:Int!,
+  images:[{url:String!,width:Int!,height:Int!,alt:String!,uid:String!,zOrder:Int!,xPosition:Int!,yPosition:Int!}],
+  texts:[{text:String!,uid:String!,
+  color:String!,fontSize:Int!,backgroundColor:String!,borderRadius:Int!,
+    borderThickness:Int!,borderColor:String!,
+    margin:Int!,
+    padding:Int!,zOrder:Int!,xPosition:Int!,yPosition:Int!}]){
+    lastUpdate
+  }
+}
+
+remove logo by id:
+
+mutation {
+  removeLogo(id:String!){
+    _id
+  }
+}
+
+clear all logos:
+
+mutation{
+  clearLogos{
+  result}
+  }
+
+
+
+
+clear logo by user:
+
+add user:
+update user by id:
+query user by id:
+query all users:
+remove user by id:
+clear users:
+
+
+add dummy data for testing:
+
+
+
+
+
+

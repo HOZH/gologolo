@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var LogoSchema = require("../models/Logo");
+var {LogoSchema} = require("../models/Logo");
 
 
 var UserSchema = new mongoose.Schema({

@@ -16,8 +16,10 @@
     "graphql": "^14.2.1",
     "graphql-date": "^1.0.3",
     "graphql-scalars": "^1.1.2",
+    "graphql-tools": "^5.0.0",
     "http-errors": "~1.6.2",
     "jade": "~1.11.0",
+    "lodash": "^4.17.15",
     "mongoose": "^5.5.2",
     "morgan": "~1.9.0"
   }
