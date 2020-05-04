@@ -10,7 +10,7 @@ var UserSchema = new mongoose.Schema({
   firstName:String,
   lastName:String,
   age: Number,
-  logos: [LogoSchema]
+
 
 });
 

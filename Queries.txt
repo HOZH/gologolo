@@ -10,6 +10,17 @@ query{
   }
   }
 
+query logos by user:
+query{
+  logosByUser(owner:String!){
+    _id,owner,images{url,width,height,alt,uid,zOrder,xPosition,yPosition}
+    ,texts{uid,text,color,fontSize,backgroundColor,borderRadius,
+    borderThickness,borderColor,
+    margin,
+    padding,zOrder,xPosition,yPosition},lastUpdate
+  }
+  }
+
 query logo by id:
 query{
   logo(id: String!){
@@ -20,6 +31,42 @@ query{
     padding,zOrder,xPosition,yPosition},lastUpdate
   }
   }
+
+query user by id:
+query{
+  logo(id: String!){
+    owner,images{url,width,height,alt,uid,zOrder,xPosition,yPosition}
+    ,texts{uid,text,color,fontSize,backgroundColor,borderRadius,
+    borderThickness,borderColor,
+    margin,
+    padding,zOrder,xPosition,yPosition},lastUpdate
+  }
+  }
+query all users:
+query{
+  user(id: String!){
+     email,
+    username,
+    password,
+    firstName,
+    lastName,
+    age,
+    lastUpdate
+  }
+  }
+query{
+  users{
+    _id, email,
+    username,
+    password,
+    firstName,
+    lastName,
+    age,
+    lastUpdate
+  }
+  }
+
+
 Matations:
 
 add logo:
@@ -57,27 +104,78 @@ mutation {
   }
 }
 
-clear all logos:
+remove all the logos:
 
 mutation{
-  clearLogos{
+  removeAllLogos{
   result}
   }
 
 
 
 
-clear logo by user:
+remove logo by user:
 
-add user:
+mutation{
+    removeLogosByUser(owner:String!){
+  result}
+  }
+
+add user: 
+mutation {
+  addUser(email: String!,
+    username:String!,
+    password:String!,
+    firstName:String!,
+    lastName:String!,
+    age: Int!){
+    lastUpdate
+  }
+}
 update user by id:
-query user by id:
-query all users:
+mutation {
+  updateUser(id:String!,
+  email: String!,
+    username:String!,
+    password:String!,
+    firstName:String!,
+    lastName:String!,
+    age: Int!){
+    lastUpdate
+  }
+}
 remove user by id:
-clear users:
+mutation {
+  removeUser(id:String!){
+    _id
+  }
+}
+
+remove all the users:
+
+mutation{
+  removeAllUsers{
+  result}
+  }
+
 
 
 add dummy data for testing:
+
+clean all the users:
+calling removeAllUsers
+
+add dummy users:
+calling addUser mutiple times with dummy data
+
+clean all the logos:
+calling removeAllLogos
+
+clean logos by user
+calling removeLogosByUser
+
+add dummy logos:
+calling addLogo mutiple times with dummy data
 
 
 
