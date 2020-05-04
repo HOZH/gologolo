@@ -162,16 +162,16 @@ mutation{
 
 add dummy data for testing:
 
-clean all the users:
+clear all the users:
 calling removeAllUsers
 
 add dummy users:
 calling addUser mutiple times with dummy data
 
-clean all the logos:
+clear all the logos:
 calling removeAllLogos
 
-clean logos by user
+clear logos by user
 calling removeLogosByUser
 
 add dummy logos:
