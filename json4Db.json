@@ -1,0 +1,50 @@
+{
+    "users": [
+        {
+            "_id": "uuid",
+            "email": "hong@gmail.com",
+            "username": "username",
+            "password": "passwd",
+            "firstName": "f",
+            "lastName": "l",
+            "age": 1,
+            "logos": [
+                {
+                    "_id": "5eaf13d18dc5f80500039bb0",
+                    "texts": [
+                        {
+                            "_id": "dsf",
+                            "text": "temp",
+                            "color": "#ffffff",
+                            "fontSize": 88,
+                            "backgroundColor": "#00e100",
+                            "borderColor": "#000000",
+                            "borderRadius": 0,
+                            "borderThickness": 10,
+                            "margin": 0,
+                            "padding": 0,
+                            "zOrder": 0,
+                            "xPosition": 100,
+                            "yPosition": 100
+                        }
+                    ],
+                    "images": [
+                        {
+                            "_id": "dasf",
+                            "url": "http://placeimg.com/640/480",
+                            "alt": "",
+                            "width": "200",
+                            "height": "200",
+                            "zOrder": 0,
+                            "xPosition": 100,
+                            "yPosition": 100
+                        }
+                    ],
+                    "height": 300,
+                    "width": 300,
+                    "lastUpdate": "2020-05-03T18:59:46.949Z"
+                }
+            ]
+        }
+    ]
+}

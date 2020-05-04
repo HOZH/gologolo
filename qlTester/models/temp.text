@@ -1,0 +1,57 @@
+mutation {
+  addLogo (
+    text: "something went wrong",
+    color: "#ff33dd",
+    fontSize: 44,
+      backgroundColor:'green',
+  borderColor: 'blue',
+  borderRadius: 10,
+  borderThickness: 20,
+  margin: 25,
+  padding: 30
+  ) {
+    lastUpdate
+  }
+}
+
+
+mutation {
+  updateLogo (
+    id: "5e8331b197c9ff377081ee7b",
+    text: "My Dumb Company",
+    color: "#ffeedd",
+    fontSize: 32
+  ) {
+    lastUpdate
+  }
+}
+
+
+mutation {
+  removeLogo (id: "5e8331b197c9ff377081ee7b") {
+    _id
+  }
+}
+
+
+
+get logo
+
+{
+  logo(id: "5e8008f05941744d549b0af1") {
+    _id
+    text
+  }
+}
+
+get all logos
+{
+  logos {
+    _id
+    text
+    color
+    fontSize
+    lastUpdate
+  }
+}
+
