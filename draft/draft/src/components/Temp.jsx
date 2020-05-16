@@ -25,10 +25,10 @@ export default class Temp extends Component {
                       type:'text',
                       url:null,
                       alt:null,
-                      width:null,
-                      height:null,
+                      imgWidth:null,
+                      imgHeight:null,
                       text:'once upon       the t1ime',
-                      color:'white',
+                      color:'#ffffff',
                       fontSize:20,
 
               
@@ -41,10 +41,10 @@ export default class Temp extends Component {
                     type:'text',
                     url:null,
                     alt:null,
-                    width:null,
-                    height:null,
+                    imgWidth:null,
+                    imgHeight:null,
                     text:'something went wrong',
-                    color:'black',
+                    color:'#ffff00',
                     fontSize:25,
 
             
@@ -52,13 +52,13 @@ export default class Temp extends Component {
                   },
                   {id:"3",
                   x:0,
-                  y:0,
+                  y:30,
                   z:3,
                   type:'img',
                   url:"http://placeimg.com/640/480",
                   alt:'alt text for id 3',
-                  width:300,
-                  height:300,
+                  imgWidth:300,
+                      imgHeight:290,
                   text:null,
                   color:null,
                   fontSize:null,
@@ -80,16 +80,36 @@ export default class Temp extends Component {
                 //    margin: null,
                 //    backgroundColor: null,
                 //  };
-                state = {...this.temp_state}
+                state = {...this.temp_state,editingItem:null}
+
+                handleSelect =(item)=>{
+                  console.log(item)
+                  let current = this.state.items.find(e=>e.id==item.id)
+                  console.log(current)
+                  this.setState({editingItem:current})
+                }
 
                  handler = (event) => {
-                   // console.log(
-                   //   "handle" + event.target.name + "Change to " + event.target.value
-                   // );
+                   console.log(
+                     "handle" + event.target.name + "Change to " + event.target.value
+                   );
                    this.setState({ [event.target.name]: event.target.value });
 
                    // console.log(123);
                  };
+
+                 itemHandler = (event) => {
+                  console.log(
+                    "handle" + event.target.name + "Change to " + event.target.value
+                  );
+                  let current = this.state.editingItem
+                  current[event.target.name]=event.target.value
+                  console.log(current)
+                  this.setState({editingItem:current})
+                  // this.setState({ [event.target.name]: event.target.value });
+
+                  // console.log(123);
+                };
                  render() {
                    let text,
                      color,
@@ -144,7 +164,7 @@ export default class Temp extends Component {
                                    style={{ whiteSpace: "pre" }}
                                    htmlFor="text"
                                  >
-                                   Text:&nbsp; {this.state.text || ""}
+                                   Text:&nbsp; {this.state.editingItem?this.state.editingItem.text : ""}
                                  </label>
                                  <input
                                    type="text"
@@ -155,15 +175,15 @@ export default class Temp extends Component {
                                    }}
                                    placeholder="Text"
                                    defaultValue=""
-                                   value={this.state.text}
-                                   onChange={this.handler}
+                                   value={this.state.editingItem&&this.state.editingItem.text}
+                                   onChange={this.itemHandler}
                                  />
                                </div>
 
 
                                <div className="form-group">
                                  <label htmlFor="color">
-                                   Color:&nbsp; {this.state.color || "#00000"}
+                                   Color:&nbsp; {this.state.editingItem?this.state.editingItem.color : "#00000"}
                                  </label>
                                  <input
                                    type="color"
@@ -173,9 +193,9 @@ export default class Temp extends Component {
                                      color = node;
                                    }}
                                    placeholder="Color"
-                                   defaultValue="#000000"
-                                   value={this.state.color}
-                                   onChange={this.handler}
+                                   defaultValue="#00000"
+                                   value={this.state.editingItem&&this.state.editingItem.color}
+                                   onChange={this.itemHandler}
                                  />
                                </div>
                                <div className="form-group">
@@ -183,7 +203,7 @@ export default class Temp extends Component {
 
                                  <label htmlFor="fontSize">
                                    Font Size:&nbsp;{" "}
-                                   {this.state.fontSize || "16"}
+                                   {this.state.editingItem?this.state.editingItem.fontSize : 16}
                                  </label>
                                  <input
                                    type="range"
@@ -196,8 +216,8 @@ export default class Temp extends Component {
                                      fontSize = node;
                                    }}
                                    placeholder="Font Size"
-                                   value={this.state.fontSize}
-                                   onChange={this.handler}
+                                   value={this.state.editingItem&&this.state.editingItem.fontSize}
+                                   onChange={this.itemHandler}
                                  />
                                </div>
 
@@ -207,7 +227,7 @@ export default class Temp extends Component {
                                    style={{ whiteSpace: "pre" }}
                                    htmlFor="imgUrl"
                                  >
-                                   img url:&nbsp; {this.state.text || ""}
+                                   img url:&nbsp; {this.state.editingItem?this.state.editingItem.url : ""}
                                  </label>
                                  <input
                                    type="text"
@@ -218,8 +238,8 @@ export default class Temp extends Component {
                                    }}
                                    placeholder="img url"
                                    defaultValue=""
-                                   value={this.state.text}
-                                   onChange={this.handler}
+                                   value={this.state.editingItem&&this.state.editingItem.url}
+                                   onChange={this.itemHandler}
                                  />
                                </div>
                                   
@@ -229,7 +249,7 @@ export default class Temp extends Component {
                                    style={{ whiteSpace: "pre" }}
                                    htmlFor="imgAlt"
                                  >
-                                   img alt:&nbsp; {this.state.text || ""}
+                                   img alt:&nbsp; {this.state.editingItem?this.state.editingItem.alt : ""}
                                  </label>
                                  <input
                                    type="text"
@@ -240,8 +260,8 @@ export default class Temp extends Component {
                                    }}
                                    placeholder="img alt"
                                    defaultValue=""
-                                   value={this.state.text}
-                                   onChange={this.handler}
+                                   value={this.state.editingItem&&this.state.editingItem.alt}
+                                   onChange={this.itemHandler}
                                  />
                                </div>
 
@@ -253,12 +273,12 @@ export default class Temp extends Component {
 
                                  <label htmlFor="imgHeight">
                                    img height:&nbsp;{" "}
-                                   {this.state.fontSize || "16"}
+                                   {this.state.editingItem?this.state.editingItem.imgHeight : "100"}
                                  </label>
                                  <input
                                    type="range"
                                    min="20"
-                                   max="200"
+                                   max="500"
                                    defaultValue="100"
                                    className="form-control"
                                    name="imgHeight"
@@ -266,8 +286,8 @@ export default class Temp extends Component {
                                      imgHeight = node;
                                    }}
                                    placeholder="img height"
-                                   value={this.state.fontSize}
-                                   onChange={this.handler}
+                                   value={this.state.editingItem&&this.state.editingItem.imgHeight}
+                                   onChange={this.itemHandler}
                                  />
                                </div>
 
@@ -276,13 +296,13 @@ export default class Temp extends Component {
 
 
                                  <label htmlFor="imgWidth">
-                                   img height:&nbsp;{" "}
-                                   {this.state.fontSize || "16"}
+                                   img width:&nbsp;{" "}
+                                   {this.state.editingItem?this.state.editingItem.imgWidth : "100"}
                                  </label>
                                  <input
                                    type="range"
                                    min="20"
-                                   max="200"
+                                   max="500"
                                    defaultValue="100"
                                    className="form-control"
                                    name="imgWidth"
@@ -290,8 +310,8 @@ export default class Temp extends Component {
                                      imgWidth = node;
                                    }}
                                    placeholder="img width"
-                                   value={this.state.fontSize}
-                                   onChange={this.handler}
+                                   value={this.state.editingItem&&this.state.editingItem.imgWidth}
+                                   onChange={this.itemHandler}
                                  />
                                </div>
 
@@ -343,8 +363,8 @@ export default class Temp extends Component {
     position:"absolute",
     whiteSpace: "pre",
 
-    width: this.state.width,
-    height: this.state.height,
+    width: this.state.width+'px',
+    height: this.state.height+'px',
 
 
 
@@ -369,83 +389,8 @@ export default class Temp extends Component {
 
 
 {this.state.items&& this.state.items.map(
-  current=> (<Item item ={current}/>)
+  current=> (<Item handleSelect={this.handleSelect} item ={current}/>)
 )}
-<Item item ={this.state.items[0]}/>
-<div
-                              
-                              style={{
-                                color: "pink",
-                                fontSize:
-                                  (this.state.fontSize || fontSize) + "pt",
-                                // backgroundColor:
-                                //   this.state.backgroundColor || "#00e100",
-                                // border:
-                                //   (this.state.borderThickness ||
-                                //     borderThickness) +
-                                //   "px solid " +
-                                //   (this.state.borderColor || "#000000"),
-                                // borderRadius:
-                                //   (this.state.borderRadius || borderRadius) +
-                                //   "px",
-                                // padding:
-                                //   (this.state.padding || padding) + "px",
-                                // margin: (this.state.margin || margin) + "px",
-                                position: "relative",
-                                left: "45%",
-                                top: "15%",
-                                zIndex:1
-                                // whiteSpace: "pre",
-                              }}
-                            >
-                              {this.state.text === null ? "" : this.state.text}
-                            </div>
-
-
-
-
-
-
-
-                            <div
-                              
-                              style={{
-                                color: "white",
-                                fontSize:
-                                  (this.state.fontSize || fontSize) + "pt",
-                                // backgroundColor:
-                                //   this.state.backgroundColor || "#00e100",
-                                // border:
-                                //   (this.state.borderThickness ||
-                                //     borderThickness) +
-                                //   "px solid " +
-                                //   (this.state.borderColor || "#000000"),
-                                // borderRadius:
-                                //   (this.state.borderRadius || borderRadius) +
-                                //   "px",
-                                // padding:
-                                //   (this.state.padding || padding) + "px",
-                                // margin: (this.state.margin || margin) + "px",
-                                position: "absolute",
-                                left: "45%",
-                                top: "35%",
-                                zIndex:2
-                                // whiteSpace: "pre",
-                              }}
-                            >
-                              {this.state.text === null ? "" : this.state.text}
-                            </div>
-
-
-                            <img style={{
-                                position: "absolute",
-                                left: "45%",
-                                top: "35%",
-                                zIndex:2
-
-                            }}
-                            src="http://placeimg.com/640/480" alt="" width="200" height="200"></img>
-
 
 
 
@@ -634,6 +579,53 @@ export default class Temp extends Component {
                                    //   defaultValue={data.logo.padding}
                                  />
                                </div>
+
+                               <div className="form-group">
+                                 <label htmlFor="height">
+                                   height:&nbsp; {this.state.height || "0"}
+                                 </label>
+                                 <input
+                                   type="range"
+                                   min="20"
+                                   max="500"
+                                   defaultValue="0"
+                                   className="form-control"
+                                   name="height"
+                                   ref={(node) => {
+                                     height = node;
+                                   }}
+                                   placeholder="Height"
+                                   value={this.state.height}
+                                   onChange={this.handler}
+
+                                   //   defaultValue={data.logo.padding}
+                                 />
+                               </div>
+
+                               <div className="form-group">
+                                 <label htmlFor="width">
+                                   width:&nbsp; {this.state.width || "0"}
+                                 </label>
+                                 <input
+                                   type="range"
+                                   min="20"
+                                   max="500"
+                                   defaultValue="0"
+                                   className="form-control"
+                                   name="width"
+                                   ref={(node) => {
+                                     width = node;
+                                   }}
+                                   placeholder="width"
+                                   value={this.state.width}
+                                   onChange={this.handler}
+
+                                   //   defaultValue={data.logo.padding}
+                                 />
+                               </div>
+
+
+
 
                                <button
                                  type="submit"
