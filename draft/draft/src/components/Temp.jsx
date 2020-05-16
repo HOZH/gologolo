@@ -2,32 +2,85 @@
 
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
+import Item from './Item'
 
 
 export default class Temp extends Component {
+
+
                   temp_state={
-                    height:300,
+                    height:400,
                     width: 300,
-                    backgroundColor:'blue',
+                    backgroundColor:'aqua',
                     borderRadius:2,
-                    borderThickness:2,
+                    borderThickness:1,
                     borderColor: 'green',
                     margin:2,
                     padding:2,
-                    items: []
+                    items: [
+                      {id:"1",
+                      x:0,
+                      y:0,
+                      z:1,
+                      type:'text',
+                      url:null,
+                      alt:null,
+                      width:null,
+                      height:null,
+                      text:'once upon       the t1ime',
+                      color:'white',
+                      fontSize:20,
+
+              
+              
+                    },
+                    {id:"2",
+                    x:0,
+                    y:0,
+                    z:2,
+                    type:'text',
+                    url:null,
+                    alt:null,
+                    width:null,
+                    height:null,
+                    text:'something went wrong',
+                    color:'black',
+                    fontSize:25,
+
+            
+            
+                  },
+                  {id:"3",
+                  x:0,
+                  y:0,
+                  z:3,
+                  type:'img',
+                  url:"http://placeimg.com/640/480",
+                  alt:'alt text for id 3',
+                  width:300,
+                  height:300,
+                  text:null,
+                  color:null,
+                  fontSize:null,
+
+          
+          
+                }
+                    ]
 
                   }
-                 state = {
-                   text: 'once upon    the time',
-                   color: null,
-                   fontSize: null,
-                   borderThickness: null,
-                   borderColor: null,
-                   borderRadius: null,
-                   padding: null,
-                   margin: null,
-                   backgroundColor: null,
-                 };
+                //  state = {
+                //    text: 'once upon    the time',
+                //    color: null,
+                //    fontSize: null,
+                //    borderThickness: null,
+                //    borderColor: null,
+                //    borderRadius: null,
+                //    padding: null,
+                //    margin: null,
+                //    backgroundColor: null,
+                //  };
+                state = {...this.temp_state}
 
                  handler = (event) => {
                    // console.log(
@@ -41,6 +94,12 @@ export default class Temp extends Component {
                    let text,
                      color,
                      fontSize,
+                     imgUrl,
+                     imgAlt,
+                     imgWidth,
+                     imgHeight,
+                     height,
+                     width,
                      backgroundColor,
                      borderColor,
                      borderThickness,
@@ -100,6 +159,8 @@ export default class Temp extends Component {
                                    onChange={this.handler}
                                  />
                                </div>
+
+
                                <div className="form-group">
                                  <label htmlFor="color">
                                    Color:&nbsp; {this.state.color || "#00000"}
@@ -118,6 +179,8 @@ export default class Temp extends Component {
                                  />
                                </div>
                                <div className="form-group">
+
+
                                  <label htmlFor="fontSize">
                                    Font Size:&nbsp;{" "}
                                    {this.state.fontSize || "16"}
@@ -137,133 +200,123 @@ export default class Temp extends Component {
                                    onChange={this.handler}
                                  />
                                </div>
+
+
                                <div className="form-group">
-                                 <label htmlFor="backgroundColor">
-                                   Background Color:&nbsp;
-                                   {this.state.backgroundColor || "#00e100"}
+                                 <label
+                                   style={{ whiteSpace: "pre" }}
+                                   htmlFor="imgUrl"
+                                 >
+                                   img url:&nbsp; {this.state.text || ""}
                                  </label>
                                  <input
-                                   type="color"
+                                   type="text"
                                    className="form-control"
-                                   name="backgroundColor"
+                                   name="imgUrl"
                                    ref={(node) => {
-                                     backgroundColor = node;
+                                     imgUrl = node;
                                    }}
-                                   placeholder="Background Color"
-                                   defaultValue="#00e100"
-                                   value={this.state.backgroundColor}
+                                   placeholder="img url"
+                                   defaultValue=""
+                                   value={this.state.text}
                                    onChange={this.handler}
-                                   //   defaultValue={data.logo.backgroundColor}
+                                 />
+                               </div>
+                                  
+
+                               <div className="form-group">
+                                 <label
+                                   style={{ whiteSpace: "pre" }}
+                                   htmlFor="imgAlt"
+                                 >
+                                   img alt:&nbsp; {this.state.text || ""}
+                                 </label>
+                                 <input
+                                   type="text"
+                                   className="form-control"
+                                   name="imgAlt"
+                                   ref={(node) => {
+                                     imgAlt = node;
+                                   }}
+                                   placeholder="img alt"
+                                   defaultValue=""
+                                   value={this.state.text}
+                                   onChange={this.handler}
                                  />
                                </div>
 
-                               <div className="form-group">
-                                 <label htmlFor="borderColor">
-                                   Border Color:&nbsp;{" "}
-                                   {this.state.borderColor || "#00000"}
-                                 </label>
-                                 <input
-                                   type="color"
-                                   className="form-control"
-                                   name="borderColor"
-                                   ref={(node) => {
-                                     borderColor = node;
-                                   }}
-                                   placeholder="Border Color"
-                                   defaultValue="#000000"
-                                   value={this.state.borderColor}
-                                   onChange={this.handler}
-                                   //   defaultValue={data.logo.borderColor}
-                                 />
-                               </div>
 
-                               <div className="form-group">
-                                 <label htmlFor="borderThickness">
-                                   Border Thickness:&nbsp;{" "}
-                                   {this.state.borderThickness || "0"}
-                                 </label>
-                                 <input
-                                   type="range"
-                                   min="0"
-                                   max="150"
-                                   defaultValue="0"
-                                   className="form-control"
-                                   name="borderThickness"
-                                   ref={(node) => {
-                                     borderThickness = node;
-                                   }}
-                                   placeholder="Border Thickness"
-                                   value={this.state.borderThickness}
-                                   onChange={this.handler}
-                                   //   defaultValue={data.logo.borderThickness}
-                                 />
-                               </div>
-                               <div className="form-group">
-                                 <label htmlFor="borderRadius">
-                                   Border Radius:&nbsp;{" "}
-                                   {this.state.borderRadius || "0"}
+
+
+                                 <div className="form-group">
+
+
+                                 <label htmlFor="imgHeight">
+                                   img height:&nbsp;{" "}
+                                   {this.state.fontSize || "16"}
                                  </label>
                                  <input
                                    type="range"
-                                   min="0"
-                                   max="150"
-                                   defaultValue="0"
+                                   min="20"
+                                   max="200"
+                                   defaultValue="100"
                                    className="form-control"
-                                   name="borderRadius"
+                                   name="imgHeight"
                                    ref={(node) => {
-                                     borderRadius = node;
+                                     imgHeight = node;
                                    }}
-                                   placeholder="Border Radius"
-                                   value={this.state.borderRadius}
+                                   placeholder="img height"
+                                   value={this.state.fontSize}
                                    onChange={this.handler}
-                                   //   defaultValue={data.logo.borderRadius}
                                  />
                                </div>
 
-                               <div className="form-group">
-                                 <label htmlFor="margin">
-                                   margin:&nbsp; {this.state.margin || "0"}
+
+                                  <div className="form-group">
+
+
+                                 <label htmlFor="imgWidth">
+                                   img height:&nbsp;{" "}
+                                   {this.state.fontSize || "16"}
                                  </label>
                                  <input
                                    type="range"
-                                   min="0"
-                                   max="60"
-                                   defaultValue="0"
+                                   min="20"
+                                   max="200"
+                                   defaultValue="100"
                                    className="form-control"
-                                   name="margin"
+                                   name="imgWidth"
                                    ref={(node) => {
-                                     margin = node;
+                                     imgWidth = node;
                                    }}
-                                   placeholder="margin"
-                                   value={this.state.margin}
+                                   placeholder="img width"
+                                   value={this.state.fontSize}
                                    onChange={this.handler}
-
-                                   //   defaultValue={data.logo.margin}
                                  />
                                </div>
 
-                               <div className="form-group">
-                                 <label htmlFor="padding">
-                                   padding:&nbsp; {this.state.padding || "0"}
-                                 </label>
-                                 <input
-                                   type="range"
-                                   min="0"
-                                   max="60"
-                                   defaultValue="0"
-                                   className="form-control"
-                                   name="padding"
-                                   ref={(node) => {
-                                     padding = node;
-                                   }}
-                                   placeholder="Padding"
-                                   value={this.state.padding}
-                                   onChange={this.handler}
 
-                                   //   defaultValue={data.logo.padding}
-                                 />
-                               </div>
+                               
 
+
+
+
+
+
+
+
+
+
+
+                                   
+                               
+
+                              
+
+                               
+                             
+
+                              
                                <button
                                  type="submit"
                                  className="btn btn-success"
@@ -290,8 +343,8 @@ export default class Temp extends Component {
     position:"absolute",
     whiteSpace: "pre",
 
-    width: '300px',
-    height: '300px',
+    width: this.state.width,
+    height: this.state.height,
 
 
 
@@ -315,6 +368,10 @@ export default class Temp extends Component {
 }}>
 
 
+{this.state.items&& this.state.items.map(
+  current=> (<Item item ={current}/>)
+)}
+<Item item ={this.state.items[0]}/>
 <div
                               
                               style={{
@@ -334,7 +391,7 @@ export default class Temp extends Component {
                                 // padding:
                                 //   (this.state.padding || padding) + "px",
                                 // margin: (this.state.margin || margin) + "px",
-                                position: "absolute",
+                                position: "relative",
                                 left: "45%",
                                 top: "15%",
                                 zIndex:1
@@ -442,9 +499,7 @@ export default class Temp extends Component {
                                onSubmit={(e) => {
                                  e.preventDefault();
                                
-                                 text.value = "";
-                                 color.value = "";
-                                 fontSize.value = "";
+                               
                                  backgroundColor.value = "";
                                  borderColor.value = "";
                                  borderThickness.value = "";
@@ -453,64 +508,7 @@ export default class Temp extends Component {
                                  padding.value = "";
                                }}
                              >
-                               <div className="form-group">
-                                 <label
-                                   style={{ whiteSpace: "pre" }}
-                                   htmlFor="text"
-                                 >
-                                   Text:&nbsp; {this.state.text || ""}
-                                 </label>
-                                 <input
-                                   type="text"
-                                   className="form-control"
-                                   name="text"
-                                   ref={(node) => {
-                                     text = node;
-                                   }}
-                                   placeholder="Text"
-                                   defaultValue=""
-                                   value={this.state.text}
-                                   onChange={this.handler}
-                                 />
-                               </div>
-                               <div className="form-group">
-                                 <label htmlFor="color">
-                                   Color:&nbsp; {this.state.color || "#00000"}
-                                 </label>
-                                 <input
-                                   type="color"
-                                   className="form-control"
-                                   name="color"
-                                   ref={(node) => {
-                                     color = node;
-                                   }}
-                                   placeholder="Color"
-                                   defaultValue="#000000"
-                                   value={this.state.color}
-                                   onChange={this.handler}
-                                 />
-                               </div>
-                               <div className="form-group">
-                                 <label htmlFor="fontSize">
-                                   Font Size:&nbsp;{" "}
-                                   {this.state.fontSize || "16"}
-                                 </label>
-                                 <input
-                                   type="range"
-                                   min="2"
-                                   max="144"
-                                   defaultValue="16"
-                                   className="form-control"
-                                   name="fontSize"
-                                   ref={(node) => {
-                                     fontSize = node;
-                                   }}
-                                   placeholder="Font Size"
-                                   value={this.state.fontSize}
-                                   onChange={this.handler}
-                                 />
-                               </div>
-                               <div className="form-group">
+                             <div className="form-group">
                                  <label htmlFor="backgroundColor">
                                    Background Color:&nbsp;
                                    {this.state.backgroundColor || "#00e100"}
