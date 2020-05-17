@@ -74,7 +74,9 @@ export default class Temp extends Component {
                  //  };
                  state = { ...this.temp_state, editingItem: {type:"none"} };
 
-
+unselect = ()=>{
+  this.setState({editingItem:{type:'none'}})
+}
 
                  componentDidMount() {
                      console.error('temp did mount')
@@ -155,7 +157,15 @@ console.error('temp will unmount')
                   
                                    };
 
+                                   deleteItem = ()=>{
+
+                                    const deletingId = this.state.editingItem.id
+                                    this.setState({items:this.state.items.filter(e=>e.id!==deletingId),editingItem:{type:'none'}})
+                                   }
+
                  handleSelect = (item) => {
+                   console.error('222222222222222222222222222222')
+                 
                    console.log(item);
                    let current = this.state.items.find((e) => e.id == item.id);
                    console.log(current);
@@ -458,12 +468,7 @@ console.error('temp will unmount')
 null}
                             
 
-                               <button
-                                 type="submit"
-                                 className="btn btn-success"
-                               >
-                                 Submit
-                               </button>
+                              
                                <br/>
                                <div className="btn btn-success" onClick={this.addText}>
                                  add text
@@ -472,12 +477,19 @@ null}
                                <div className="btn btn-success" onClick={this.addImage}>
                                  add image
                                </div>
+                              { this.state.editingItem.type!=='none'?<div className="btn btn-danger" onClick={this.deleteItem}>
+                                 delete item
+                               </div>:null}
                              </form>
                            </div>
                            {/* {loading && <p>Loading...</p>} */}
                            {/* {error && <p>Error :( Please try again</p>} */}
                            <div className="col-7">
                              <div
+                             onClick = {()=>{
+                               console.log('qwe')
+                               this.unselect()
+                             }}
                                style={{
                                  left: "40%",
                                  top: "10%",

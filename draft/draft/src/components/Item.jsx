@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Rnd} from "react-rnd";
 import Draggable, {DraggableCore} from 'react-draggable'; // Both at the same time
+import ReactDOM from 'react-dom';
 
 
 export default class Item extends Component {
@@ -40,12 +41,23 @@ export default class Item extends Component {
                  //  };
                  componentDidMount() {
                    console.error("item did mount",this.props.item.id);
+                   ReactDOM.findDOMNode(this).addEventListener('click', (event) => {
+                     console.log(2223)
+                     console.log(this)
+                    event.stopPropagation();
+                       this.props.handleSelect(
+                      
+                         this.props.item)
+                              console.log(2223)
+
+                  }, false);
                  }
                  componentWillUnmount() {
                    console.error("item will unmount",this.props.item.id);
+                  //  ReactDOM.findDOMNode(this).removeEventListener('click')
                  }
                static  getDerivedStateFromProps(){
-                   console.error("item will re rendered")
+                  //  console.error("item will re rendered")
                  }
 
                  handleStop = (event, dragging) => {
@@ -57,7 +69,7 @@ export default class Item extends Component {
                    console.log(dragging.x);
                    console.log(dragging.y);
                    this.props.handlePositionChange(dragging.x, dragging.y);
-                   this.forceUpdate();
+                  //  this.forceUpdate();
 
                  };
 
@@ -85,12 +97,21 @@ export default class Item extends Component {
                      buttomBoundary
                    );
 
+                   
                    return (
                      <div
-                       onMouseDown={this.props.handleSelect.bind(
-                         this,
-                         currentItem
-                       )}
+                      //  onMouseDown={(e)=>{
+                      //    console.log(23)
+                      //    console.log(e)
+                         
+                      //   //  e.preventDefault()
+                      //   //  e.stopPropagation();
+                      //   //  e.nativeEvent.stopImmediatePropagation();
+                      //   console.log('abc') 
+                      //   this.props.handleSelect.bind(
+                      //    this,
+                      //    currentItem
+                      //  )}      }
                        // onClick={this.props.handleSelect.bind(this, currentItem)}
                        id={currentItem.id}
                        style= {{                             
