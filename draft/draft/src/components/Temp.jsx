@@ -52,7 +52,7 @@ export default class Temp extends Component {
                   },
                   {id:"3",
                   x:0,
-                  y:30,
+                  y:50,
                   z:3,
                   type:'img',
                   url:"http://placeimg.com/640/480",

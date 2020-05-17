@@ -1,71 +1,81 @@
 import React, { Component } from 'react'
 import {Rnd} from "react-rnd";
+import Draggable, {DraggableCore} from 'react-draggable'; // Both at the same time
 
 
 export default class Item extends Component {
 
-    handleDrag = (event, dragging) => {
+
+    state = {
+        activeDrags: 0,
+        deltaPosition: {
+          x: 0, y: 0
+        },
+        controlledPosition: {
+          x: -400, y: 200
+        }
+      };
+    
+ 
+      onStart = (a,b) => {
+          console.log(a)
+          console.log(b)
+        // this.setState({activeDrags: ++this.state.activeDrags});
+      };
+    
+      onStop = (a,b) => {
+        console.log(a)
+        console.log(b)
+        // this.setState({activeDrags: --this.state.activeDrags});
+      };
+    
+   
+
+
+    handleStart =()=>{
+        console.log('starting')
+    }
+
+    handleDrag = ()=>{
+        console.log('dragging')
+    }
+
+    handleStop = (event, dragging) => {
+        console.log(event)
+        
         console.log(dragging)
         console.log(dragging.x)
         console.log(dragging.y)
 
-        // if (this.props.item.selected) {
-        //     this.props.item.left = dragging.x;
-        //     this.props.item.top = dragging.y;
-        //     this.setState(this.props.item);
-        //     this.props.handleWorkModified();
-        // }
+       
     }
 
     render() {
         const currentItem = this.props.item
-        // console.log(this.props.I)
+        const dragHandlers = {onStart: this.onStart, onStop: this.onStop};
+
         
         return (
 
-            <div 
-            onMouseDown={this.props.handleSelect.bind(this, currentItem)}
-            // onClick={this.props.handleSelect.bind(this, currentItem)}
-            id={currentItem.id} style={{overflow: "auto"}} className={this.typeControll}>
-            <Rnd
-                default={{
-                    x: currentItem.x,
-                    y: currentItem.y,
-               
-                }}
-                onDragStop={this.handleDrag}
-          
-            >
-                          {  currentItem.type === "text"?   <div
-                              
-                              style={{
-                                color: currentItem.color,
-                                fontSize:
-                                  currentItem.fontSize + "pt",
-                           
-                                position: "relative",
-                                left: currentItem.x,
-                                top: currentItem.y,
-                                zIndex:currentItem.z
-                                // whiteSpace: "pre",
-                              }}
-                            >
-                              {currentItem.text === null ? "" : currentItem.text}
-                            </div>
-                  :
-                  <img style={{
-                      position: "relative",
-                      left: currentItem.x,
-                      top: currentItem.y,
-                      zIndex:currentItem.z
-                  
-                  }}
-                  src={currentItem.url} alt={currentItem.alt} width={currentItem.imgWidth} height={currentItem.imgHeight}></img>
-                  }
-                  
-            </Rnd>
+            <Draggable {...dragHandlers}>
+<img src="http://placeimg.com/640/480" alt="" width="200" height="200"/>     
+     </Draggable>
 
-        </div>
+          
+    //         <Draggable
+    //         axis="x"
+    //         handle=".handle"
+    //         defaultPosition={{x: 0, y: 0}}
+    //         position={null}
+    //         grid={[25, 25]}
+    //         scale={1}
+    //         onStart={this.handleStart}
+    //         onDrag={this.handleDrag}
+    //         onStop={this.handleStop}>
+    //              <img src="http://placeimg.com/640/480" alt="" width="200" height="200"/>
+
+    //   </Draggable>
+
 
         )
     }
