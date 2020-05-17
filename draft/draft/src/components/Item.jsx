@@ -93,7 +93,8 @@ export default class Item extends Component {
                        )}
                        // onClick={this.props.handleSelect.bind(this, currentItem)}
                        id={currentItem.id}
-                       style= {{                               padding: "inherit"
+                       style= {{                             
+                          //  padding: "inherit"
                       }}
                        // style={{overflow: "auto"}}
                      >
@@ -125,7 +126,7 @@ export default class Item extends Component {
                               //  left: currentItem.x,
                               //  top: currentItem.y,
                                zIndex: currentItem.z,
-                               padding: "inherit"
+                              //  padding: "inherit"
 
                                // whiteSpace: "pre",
                              }}
@@ -141,7 +142,7 @@ export default class Item extends Component {
                               //  left: currentItem.x,
                               //  top: currentItem.y,
                                zIndex: currentItem.z,
-                               padding: "inherit"
+                              //  padding: "inherit"
                                // whiteSpace: "pre",
                              }}
                            >

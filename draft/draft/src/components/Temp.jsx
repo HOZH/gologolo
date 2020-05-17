@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
 import Item from './Item'
+import { v4 as uuidv4 } from 'uuid';
 
 
 export default class Temp extends Component {
@@ -71,21 +72,101 @@ export default class Temp extends Component {
                  //    margin: null,
                  //    backgroundColor: null,
                  //  };
-                 state = { ...this.temp_state, editingItem: null };
+                 state = { ...this.temp_state, editingItem: {type:"none"} };
+
 
 
                  componentDidMount() {
                      console.error('temp did mount')
-                 }
+                 };
                  componentWillUnmount(){
 console.error('temp will unmount')
+                 };
+   get_max_z_order =()=>{
+
+                  let maxZ = -1
+                  console.log(this.state.items)
+                  for(let i of this.state.items)
+                  {
+                    console.log(i)
+                    if(i.z>maxZ)
+                    maxZ=i.z
+                  }
+                  
+
+
+                  return maxZ
                  }
+
+                 addText=()=>{
+                  console.log(1)
+                  // console.log(this.get_max_z_order())
+                  let newZ = this.get_max_z_order()+1
+                                    const textTemplate = {
+                                          id: uuidv4(),
+                                      x: 0,
+                                      y: 0,
+                                      z: newZ,
+                                    
+                                      type: "text",
+                                      url: null,
+                                      alt: null,
+                                      imgWidth: null,
+                                      imgHeight: null,
+                                      text: "placeHolder",
+                                      color: "#ffffff",
+                                      fontSize: 16,
+                                  
+                                  
+                                    }
+
+                                    // console.log(textTemplate)
+                                    this.setState({items:[...this.state.items,textTemplate],editingItem:textTemplate})
+              }
+                                     
+                                    
+                  
+                                   
+                                   addImage = ()=>{
+                                    console.log(2)
+
+
+                                    let newZ = this.get_max_z_order()+1
+                                    const textTemplate = {
+                                          id: uuidv4(),
+                                      x: 0,
+                                      y: 0,
+                                      z: newZ,
+                                      type: "img",
+                                      url: "http://placeimg.com/640/480",
+                                      alt: "alt for place holder",
+                                      imgWidth: 100,
+                                      imgHeight: 100,
+                                    
+                                      text: null,
+                                      color: null,
+                                      fontSize: null,
+                                  
+                                    }
+
+                                    // console.log(textTemplate)
+                                    this.setState({items:[...this.state.items,textTemplate],editingItem:textTemplate})
+
+                  
+                                   };
 
                  handleSelect = (item) => {
                    console.log(item);
                    let current = this.state.items.find((e) => e.id == item.id);
                    console.log(current);
-                   this.setState({ editingItem: current });
+                   current.z = this.get_max_z_order()+1
+                   this.setState({ editingItem: current,items: this.state.items.map(e=>{
+                     if(e.id==current.id)
+                     e.z = current.z
+
+                     return e
+                   }) });
+                   
                  };
 
                  handler = (event) => {
@@ -185,7 +266,9 @@ console.error('temp will unmount')
                                  padding.value = "";
                                }}
                              >
-                               <div className="form-group">
+                              {this.state.editingItem.type=="text"?
+                              <React.Fragment>
+                                 <div className="form-group">
                                  <label
                                    style={{ whiteSpace: "pre" }}
                                    htmlFor="text"
@@ -260,8 +343,12 @@ console.error('temp will unmount')
                                    onChange={this.itemHandler}
                                  />
                                </div>
-
-                               <div className="form-group">
+                              </React.Fragment>
+                              :
+                             null}
+{this.state.editingItem.type ==="img"?
+<React.Fragment>
+<div className="form-group">
                                  <label
                                    style={{ whiteSpace: "pre" }}
                                    htmlFor="imgUrl"
@@ -274,7 +361,7 @@ console.error('temp will unmount')
                                  <input
                                    type="text"
                                    className="form-control"
-                                   name="imgUrl"
+                                   name="url"
                                    ref={(node) => {
                                      imgUrl = node;
                                    }}
@@ -301,7 +388,7 @@ console.error('temp will unmount')
                                  <input
                                    type="text"
                                    className="form-control"
-                                   name="imgAlt"
+                                   name="alt"
                                    ref={(node) => {
                                      imgAlt = node;
                                    }}
@@ -366,6 +453,10 @@ console.error('temp will unmount')
                                    onChange={this.itemHandler}
                                  />
                                </div>
+</React.Fragment>
+:
+null}
+                            
 
                                <button
                                  type="submit"
@@ -373,6 +464,14 @@ console.error('temp will unmount')
                                >
                                  Submit
                                </button>
+                               <br/>
+                               <div className="btn btn-success" onClick={this.addText}>
+                                 add text
+                               </div>
+                               <br/>
+                               <div className="btn btn-success" onClick={this.addImage}>
+                                 add image
+                               </div>
                              </form>
                            </div>
                            {/* {loading && <p>Loading...</p>} */}
@@ -614,6 +713,7 @@ console.error('temp will unmount')
                                  Submit
                                </button>
                              </form>
+                          
                            </div>
                          </div>
                        </div>
