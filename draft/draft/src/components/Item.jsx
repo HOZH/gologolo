@@ -4,79 +4,136 @@ import Draggable, {DraggableCore} from 'react-draggable'; // Both at the same ti
 
 
 export default class Item extends Component {
+                 state = {
+                   activeDrags: 0,
+                   deltaPosition: {
+                     x: 0,
+                     y: 0,
+                   },
+                   controlledPosition: {
+                     x: -400,
+                     y: 200,
+                   },
+                 };
 
+                 //  onStart = (a, b) => {
+                 //    console.log("starting");
 
-    state = {
-        activeDrags: 0,
-        deltaPosition: {
-          x: 0, y: 0
-        },
-        controlledPosition: {
-          x: -400, y: 200
-        }
-      };
-    
- 
-      onStart = (a,b) => {
-          console.log(a)
-          console.log(b)
-        // this.setState({activeDrags: ++this.state.activeDrags});
-      };
-    
-      onStop = (a,b) => {
-        console.log(a)
-        console.log(b)
-        // this.setState({activeDrags: --this.state.activeDrags});
-      };
-    
-   
+                 //    console.log(a);
+                 //    console.log(b);
+                 //    // this.setState({activeDrags: ++this.state.activeDrags});
+                 //  };
 
+                 onStop = (a, b) => {
+                   console.log("stopping");
+                   console.log(a);
+                   console.log(b);
+                   // this.setState({activeDrags: --this.state.activeDrags});
+                   //  this.props.handlePositionChange(a,)
+                 };
 
-    handleStart =()=>{
-        console.log('starting')
-    }
+                 //  onDrag = (a, b) => {
+                 //    console.log("dragging");
+                 //    console.log(a);
+                 //    console.log(b);
+                 //    // this.setState({activeDrags: --this.state.activeDrags});
+                 //  };
+                 componentDidMount() {
+                   console.error("item did mount",this.props.item.id);
+                 }
+                 componentWillUnmount() {
+                   console.error("item will unmount",this.props.item.id);
+                 }
 
-    handleDrag = ()=>{
-        console.log('dragging')
-    }
+                 handleStop = (event, dragging) => {
+                   console.log(123);
 
-    handleStop = (event, dragging) => {
-        console.log(event)
-        
-        console.log(dragging)
-        console.log(dragging.x)
-        console.log(dragging.y)
+                   console.log(event);
 
-       
-    }
+                   console.log(dragging);
+                   console.log(dragging.x);
+                   console.log(dragging.y);
+                   this.props.handlePositionChange(dragging.x, dragging.y);
+                 };
 
-    render() {
-        const currentItem = this.props.item
-        const dragHandlers = {onStart: this.onStart, onStop: this.onStop};
+                 render() {
+                   const currentItem = this.props.item;
+                   const dragHandlers = {
+                     //  onStart: this.onStart,
+                     //  onDrag:this.onDrag,
+                     //  onStop: this.onStop,
+                     onStop: this.handleStop,
+                   };
 
-        
-        return (
+                   const leftBoundary = 0 - Number(currentItem.x);
+                   const topBoundary = 0 - Number(currentItem.y);
 
-            <Draggable {...dragHandlers}>
-<img src="http://placeimg.com/640/480" alt="" width="200" height="200"/>     
-     </Draggable>
+                   const rightBoundary =
+                     this.props.logoWidth - Number(currentItem.x);
+                   const buttomBoundary =
+                     this.props.logoHeight - Number(currentItem.y);
 
-          
-    //         <Draggable
-    //         axis="x"
-    //         handle=".handle"
-    //         defaultPosition={{x: 0, y: 0}}
-    //         position={null}
-    //         grid={[25, 25]}
-    //         scale={1}
-    //         onStart={this.handleStart}
-    //         onDrag={this.handleDrag}
-    //         onStop={this.handleStop}>
-    //              <img src="http://placeimg.com/640/480" alt="" width="200" height="200"/>
+                   console.log(
+                     leftBoundary,
+                     topBoundary,
+                     rightBoundary,
+                     buttomBoundary
+                   );
 
-    //   </Draggable>
+                   return (
+                     <div
+                       onMouseDown={this.props.handleSelect.bind(
+                         this,
+                         currentItem
+                       )}
+                       // onClick={this.props.handleSelect.bind(this, currentItem)}
+                       id={currentItem.id}
+                       // style={{overflow: "auto"}}
+                     >
+                       <Draggable
+                         {...dragHandlers}
+                         bounds={{
+                           left: leftBoundary,
+                           right: rightBoundary,
+                           top: topBoundary,
+                           bottom: buttomBoundary,
+                         }}
+                       >
+                         {currentItem.type === "text" ? (
+                           <div
+                             style={{
+                               color: currentItem.color,
+                               fontSize: currentItem.fontSize + "pt",
 
-
-        )
-    }
-}
+                               position: "absolute",
+                               left: currentItem.x,
+                               top: currentItem.y,
+                               zIndex: currentItem.z,
+                               // whiteSpace: "pre",
+                             }}
+                           >
+                             {currentItem.text === null ? "" : currentItem.text}
+                           </div>
+                         ) : (
+                           <div
+                             style={{
+                               position: "absolute",
+                               left: currentItem.x,
+                               top: currentItem.y,
+                               zIndex: currentItem.z,
+                               // whiteSpace: "pre",
+                             }}
+                           >
+                             <img
+                               src="http://placeimg.com/640/480"
+                               alt=""
+                               width="200"
+                               height="200"
+                             />
+                           </div>
+                         )}
+                       </Draggable>
+                     </div>
+                   );
+                 }
+               }
