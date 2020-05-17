@@ -12,76 +12,58 @@ var UserModel = require("../models/User");
 const { makeExecutableSchema } = require("apollo-server");
 const { DateTimeResolver } = require("graphql-scalars");
 var { LogoSchema } = require("../models/Logo");
-var UserModel = require("../models/User")
+var UserModel = require("../models/User");
 
 const typeDefs = `
 
 scalar DateTime
-type Image {
 
+type Item{
+  uid:String
+  type:String
+  zOrder:Int
+  xPosition:Int
+  yPosition:Int
+  text: String
+  color: String
+  fontSize:Int
   url:String
   alt:String
   width:Int
   height:Int
-  zOrder:Int
-  xPosition:Int
-  yPosition:Int
-  uid:String
+
 }
-type Text {
-  uid:String
+
+
+input ItemInput{
+  uid:String!
+  type:String!
+  zOrder:Int!
+  xPosition:Int!
+  yPosition:Int!
   text: String
   color: String
   fontSize:Int
-  backgroundColor:String
-  borderRadius:Int
-  borderThickness :Int
-  borderColor: String
-  margin : Int
-  padding : Int
-  zOrder: Int
-  xPosition: Int
-  yPosition: Int
-  
-}
-
-
-input ImageInput {
-  url:String!
-  width:Int!
-  height:Int!
+  url:String
   alt:String
-  uid:String!
-  zOrder:Int
-  xPosition:Int
-  yPosition:Int
-
+  width:Int
+  height:Int
 
 }
 
-input TextInput {
-  uid: String!
-  text: String!
-  color: String
-  fontSize:Int
-  backgroundColor:String
-  borderRadius:Int
-  borderThickness :Int
-  borderColor: String
-  margin : Int
-  padding : Int
-  zOrder: Int
-  xPosition: Int
-  yPosition: Int
-  
-}
+
   type Logo {
     _id: String
     owner:String
-    images: [Image]
-    texts:[Text]
+    items: [Item]
     width: Int
     height: Int
+    backgroundColor:String
+    borderRadius:Int
+    borderThickness :Int
+    borderColor: String
+    margin : Int
+    padding : Int
     lastUpdate : DateTime
  }
 
@@ -112,8 +94,8 @@ type Query {
 
 type Mutation{
 
-    addLogo(owner:String!,width:Int!,height:Int!, images:[ImageInput],texts:[TextInput]): Logo
-    updateLogo(id:String!,owner:String!,width:Int!,height:Int!, images:[ImageInput],texts:[TextInput]): Logo
+    addLogo(owner:String!,width:Int!,height:Int!, items:[ItemInput],backgroundColor:String!,borderRadius:Int!,borderThickness:Int!,borderColor:String!,margin:Int!,padding:Int!): Logo
+    updateLogo(id:String!,owner:String!,width:Int!,height:Int!, items:[ItemInput],backgroundColor:String!,borderRadius:Int!,borderThickness:Int!,borderColor:String!,margin:Int!,padding:Int!): Logo
     removeLogo(id:String!):Logo
     removeAllLogos:myBoolean
     removeLogosByUser(owner:String!):myBoolean
@@ -130,24 +112,18 @@ const resolvers = {
   Query: {
     logos: () => LogoModel.find().sort({ lastUpdate: -1 }).exec(),
 
-    logo: (_, { id }) => {
-      console.log(id);
-      return LogoModel.findById(id).exec();
-    },
-
+    logo: (_, { id }) => LogoModel.findById(id).exec(),
     logosByUser: (_, { owner }) => {
-      // console.log(iwber);
-      return LogoModel.find().where('owner',owner).sort({ lastUpdate: -1 }).exec()
-      // return LogoModel.findById(id).exec();
+      return LogoModel.find()
+        .where("owner", owner)
+        .sort({ lastUpdate: -1 })
+        .exec();
     },
     users: () => UserModel.find().exec(),
-    logo: (_, { id }) => {
+    user: (_, { id }) => {
       console.log(id);
       return UserModel.findById(id).exec();
     },
-
-
-
   },
 
   Mutation: {
@@ -158,7 +134,7 @@ const resolvers = {
       if (!newLogo) {
         throw new Error("Error");
       }
-      console.log(newLogo)
+      console.log(newLogo);
       return newLogo;
     },
 
@@ -169,10 +145,10 @@ const resolvers = {
       if (!newUser) {
         throw new Error("Error");
       }
-      console.log(newUser)
+      console.log(newUser);
       return newUser;
     },
-    
+
     updateLogo: (_, params) => {
       // const logoModel = new LogoModel(params);
       // console.log(logoModel)
@@ -180,17 +156,23 @@ const resolvers = {
         params.id,
         {
           texts: params.texts,
-          owner:params.owner,
-          images:params.images,
-          width:params.width,
-          height:params.height,
+          owner: params.owner,
+          images: params.images,
+          width: params.width,
+          height: params.height,
+          items: params.items,
+          backgroundColor: params.backgroundColor,
+          borderRadius: params.borderRadius,
+          borderThickness: params.borderThickness,
+          borderColor: params.borderColor,
+          margin: params.margin,
+          padding: params.padding,
           lastUpdate: new Date(),
         },
         function (err) {
           if (err) return next(err);
         }
       );
-    
     },
 
     updateUser: (_, params) => {
@@ -200,89 +182,73 @@ const resolvers = {
         params.id,
         {
           username: params.username,
-          password:params.password,
-          age:params.age,
-          email:params.email,
-          firstname:params.firstname,
+          password: params.password,
+          age: params.age,
+          email: params.email,
+          firstname: params.firstname,
           lastname: params.lastname,
         },
         function (err) {
           if (err) return next(err);
         }
       );
-    
     },
 
-    removeLogo: (_, params)=>{
-    
-     
-        const remLogo = LogoModel.findByIdAndRemove(params.id).exec();
-        if (!remLogo) {
-          throw new Error("Error");
-        }
-        return remLogo;
-      
+    removeLogo: (_, params) => {
+      const remLogo = LogoModel.findByIdAndRemove(params.id).exec();
+      if (!remLogo) {
+        throw new Error("Error");
+      }
+      return remLogo;
     },
-     removeUser: (_, params)=>{
-    
-     
-        const remUser = UserModel.findByIdAndRemove(params.id).exec();
-        if (!remUser) {
-          throw new Error("Error");
-        }
-        return remUser;
-      
+    removeUser: (_, params) => {
+      const remUser = UserModel.findByIdAndRemove(params.id).exec();
+      if (!remUser) {
+        throw new Error("Error");
+      }
+      return remUser;
     },
 
-    removeAllLogos: ()=>{
-
-      const remLogos = LogoModel.deleteMany({}).exec()
-      console.log(remLogos)
-      let myBoolean ={result:false}
-        if (!remLogos) {
-        throw new Error("Error");      
+    removeAllLogos: () => {
+      const remLogos = LogoModel.deleteMany({}).exec();
+      console.log(remLogos);
+      let myBoolean = { result: false };
+      if (!remLogos) {
+        throw new Error("Error");
       }
 
-      console.log(remLogos)
-      myBoolean.result = true
+      console.log(remLogos);
+      myBoolean.result = true;
 
-      
       return myBoolean;
-    
-  },
+    },
 
-  removeAllUsers: ()=>{
-
-    const remUsers = LogoModel.deleteMany({}).exec()
-    console.log(remUsers)
-    let myBoolean ={result:false}
+    removeAllUsers: () => {
+      const remUsers = LogoModel.deleteMany({}).exec();
+      console.log(remUsers);
+      let myBoolean = { result: false };
       if (!remUsers) {
-      throw new Error("Error");      
-    }
+        throw new Error("Error");
+      }
 
-    console.log(remUsers)
-    myBoolean.result = true
+      console.log(remUsers);
+      myBoolean.result = true;
 
-    
-    return myBoolean;
-  
-},
-  removeLogosByUser: (_,{owner})=>{
-
-    const remLogos = LogoModel.deleteMany({"owner":owner}).exec()
-    console.log(remLogos)
-    let myBoolean ={result:false}
+      return myBoolean;
+    },
+    removeLogosByUser: (_, { owner }) => {
+      const remLogos = LogoModel.deleteMany({ owner: owner }).exec();
+      console.log(remLogos);
+      let myBoolean = { result: false };
       if (!remLogos) {
-      throw new Error("Error");      
-    }
+        throw new Error("Error");
+      }
 
-    console.log(remLogos)
-    myBoolean.result = true
+      console.log(remLogos);
+      myBoolean.result = true;
 
-    
-    return myBoolean;
-  
-},
+      return myBoolean;
+    },
   },
 };
 
