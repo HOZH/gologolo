@@ -32,7 +32,7 @@ export default class Temp extends Component {
                      },
                      {
                        id: "2",
-                       x: 0,
+                       x: 20,
                        y: 0,
                        z: 2,
                        type: "text",
@@ -52,8 +52,8 @@ export default class Temp extends Component {
                        type: "img",
                        url: "http://placeimg.com/640/480",
                        alt: "alt text for id 3",
-                       imgWidth: 300,
-                       imgHeight: 290,
+                       imgWidth: 200,
+                       imgHeight: 200,
                        text: null,
                        color: null,
                        fontSize: null,
@@ -117,12 +117,14 @@ console.error('temp will unmount')
                  };
 
                  handlePositionChange =(x,y)=>{
+                   console.error(234)
+                   console.log(x,y)
                         let current = this.state.editingItem;
                      
-                        current.x+=x;
-                        current.y+=y;
+                        current.x=x;
+                        current.y=y;
                         console.log(current);
-                        // this.setState({ editingItem: current });
+                        this.setState({ editingItem: current });
                         // let temp = this.state.items.map(e=>{
                         //     if (e.id== this.state.editingItem.id){
                         //         e = {...this.state.editingItem}
@@ -130,6 +132,8 @@ console.error('temp will unmount')
                         //     return e
                         // })
                         // this.setState({items:temp})
+                        // this.forceUpdate();
+
 
                  }
                  render() {

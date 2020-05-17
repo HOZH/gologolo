@@ -44,6 +44,9 @@ export default class Item extends Component {
                  componentWillUnmount() {
                    console.error("item will unmount",this.props.item.id);
                  }
+               static  getDerivedStateFromProps(){
+                   console.error("item will re rendered")
+                 }
 
                  handleStop = (event, dragging) => {
                    console.log(123);
@@ -54,6 +57,8 @@ export default class Item extends Component {
                    console.log(dragging.x);
                    console.log(dragging.y);
                    this.props.handlePositionChange(dragging.x, dragging.y);
+                   this.forceUpdate();
+
                  };
 
                  render() {
@@ -88,27 +93,40 @@ export default class Item extends Component {
                        )}
                        // onClick={this.props.handleSelect.bind(this, currentItem)}
                        id={currentItem.id}
+                       style= {{                               padding: "inherit"
+                      }}
                        // style={{overflow: "auto"}}
                      >
                        <Draggable
-                         {...dragHandlers}
-                         bounds={{
-                           left: leftBoundary,
-                           right: rightBoundary,
-                           top: topBoundary,
-                           bottom: buttomBoundary,
-                         }}
+                        //  {...dragHandlers}
+                        onStop={this.handleStop}
+                        defaultPosition={{
+                          x: currentItem.x,
+                          y: currentItem.y,
+                     
+                      }}
+                        //  bounds={{
+                        //    left: leftBoundary,
+                        //    right: rightBoundary,
+                        //    top: topBoundary,
+                        //    bottom: buttomBoundary,
+                        //  }}
+                        //  disabled={true}
                        >
                          {currentItem.type === "text" ? (
                            <div
                              style={{
                                color: currentItem.color,
                                fontSize: currentItem.fontSize + "pt",
+                              //  "width": "100%",
+                              //  "height": "100%",
 
                                position: "absolute",
-                               left: currentItem.x,
-                               top: currentItem.y,
+                              //  left: currentItem.x,
+                              //  top: currentItem.y,
                                zIndex: currentItem.z,
+                               padding: "inherit"
+
                                // whiteSpace: "pre",
                              }}
                            >
@@ -117,18 +135,21 @@ export default class Item extends Component {
                          ) : (
                            <div
                              style={{
+                              // "width": "100%",
+                              // "height": "100%",
                                position: "absolute",
-                               left: currentItem.x,
-                               top: currentItem.y,
+                              //  left: currentItem.x,
+                              //  top: currentItem.y,
                                zIndex: currentItem.z,
+                               padding: "inherit"
                                // whiteSpace: "pre",
                              }}
                            >
                              <img
-                               src="http://placeimg.com/640/480"
-                               alt=""
-                               width="200"
-                               height="200"
+                               src={currentItem.url}
+                               alt={currentItem.alt}
+                               width={currentItem.imgWidth}
+                               height={currentItem.imgHeight}
                              />
                            </div>
                          )}
