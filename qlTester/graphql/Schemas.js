@@ -1,17 +1,7 @@
-var GraphQLSchema = require("graphql").GraphQLSchema;
-var GraphQLObjectType = require("graphql").GraphQLObjectType;
-var GraphQLList = require("graphql").GraphQLList;
-var GraphQLInputObjectType = require("graphql").GraphQLInputObjectType;
-var GraphQLNonNull = require("graphql").GraphQLNonNull;
-var GraphQLID = require("graphql").GraphQLID;
-var GraphQLString = require("graphql").GraphQLString;
-var GraphQLInt = require("graphql").GraphQLInt;
-var GraphQLDate = require("graphql-date");
+
 var { LogoModel } = require("../models/Logo");
 var UserModel = require("../models/User");
 const { makeExecutableSchema } = require("apollo-server");
-const { DateTimeResolver } = require("graphql-scalars");
-var { LogoSchema } = require("../models/Logo");
 var UserModel = require("../models/User");
 
 const typeDefs = `

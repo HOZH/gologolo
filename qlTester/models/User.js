@@ -10,6 +10,9 @@ var UserSchema = new mongoose.Schema({
   firstName:String,
   lastName:String,
   age: Number,
+  hash:String,
+  salt:String
+
 
 
 });

@@ -7,6 +7,8 @@ var mongoose = require("mongoose");
 var graphqlHTTP = require("express-graphql");
 var schema = require("./graphql/Schemas");
 var cors = require("cors");
+const passport = require("passport");
+
 
 mongoose
   .connect("mongodb://localhost/gql_tester", {
@@ -15,6 +17,13 @@ mongoose
   })
   .then(() => console.log("connection successful"))
   .catch((err) => console.error(err));
+
+
+// // Must first load the models
+// require('./models/user');
+
+// Pass the global passport object into the configuration function
+require('./config/passport')(passport);
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
