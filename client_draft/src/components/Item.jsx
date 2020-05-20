@@ -17,14 +17,6 @@ export default class Item extends Component {
                    },
                  };
 
-                 //  onStart = (a, b) => {
-                 //    console.log("starting");
-
-                 //    console.log(a);
-                 //    console.log(b);
-                 //    // this.setState({activeDrags: ++this.state.activeDrags});
-                 //  };
-
                  onStop = (a, b) => {
                    console.log("stopping");
                    console.log(a);
@@ -33,14 +25,10 @@ export default class Item extends Component {
                    //  this.props.handlePositionChange(a,)
                  };
 
-                 //  onDrag = (a, b) => {
-                 //    console.log("dragging");
-                 //    console.log(a);
-                 //    console.log(b);
-                 //    // this.setState({activeDrags: --this.state.activeDrags});
-                 //  };
+            
                  componentDidMount() {
-                   console.error("item did mount",this.props.item.id);
+                   console.error("item did mount123",this.props.item.id);
+
                    ReactDOM.findDOMNode(this).addEventListener('click', (event) => {
                      console.log(2223)
                      console.log(this)
@@ -51,13 +39,14 @@ export default class Item extends Component {
                               console.log(2223)
 
                   }, false);
+                  console.log(this.props.feedbackItem)
+                  this.props.feedbackItem(this.props.item)
                  }
                  componentWillUnmount() {
                    console.error("item will unmount",this.props.item.id);
                   //  ReactDOM.findDOMNode(this).removeEventListener('click')
                  }
                static  getDerivedStateFromProps(){
-                  //  console.error("item will re rendered")
                  }
 
                  handleStop = (event, dragging) => {
@@ -69,16 +58,13 @@ export default class Item extends Component {
                    console.log(dragging.x);
                    console.log(dragging.y);
                    this.props.handlePositionChange(dragging.x, dragging.y);
-                  //  this.forceUpdate();
 
                  };
 
                  render() {
                    const currentItem = this.props.item;
                    const dragHandlers = {
-                     //  onStart: this.onStart,
-                     //  onDrag:this.onDrag,
-                     //  onStop: this.onStop,
+                 
                      onStop: this.handleStop,
                    };
 
@@ -100,19 +86,7 @@ export default class Item extends Component {
                    
                    return (
                      <div
-                      //  onMouseDown={(e)=>{
-                      //    console.log(23)
-                      //    console.log(e)
-                         
-                      //   //  e.preventDefault()
-                      //   //  e.stopPropagation();
-                      //   //  e.nativeEvent.stopImmediatePropagation();
-                      //   console.log('abc') 
-                      //   this.props.handleSelect.bind(
-                      //    this,
-                      //    currentItem
-                      //  )}      }
-                       // onClick={this.props.handleSelect.bind(this, currentItem)}
+                   
                        id={currentItem.id}
                        style= {{                             
                           //  padding: "inherit"
@@ -127,13 +101,7 @@ export default class Item extends Component {
                           y: currentItem.y,
                      
                       }}
-                        //  bounds={{
-                        //    left: leftBoundary,
-                        //    right: rightBoundary,
-                        //    top: topBoundary,
-                        //    bottom: buttomBoundary,
-                        //  }}
-                        //  disabled={true}
+               
                        >
                          {currentItem.type === "text" ? (
                            <div

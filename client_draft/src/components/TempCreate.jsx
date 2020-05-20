@@ -126,6 +126,11 @@ export default class Temp extends Component {
     this.setState({ editingItem: { type: "none" } });
   };
 
+
+  feedbackItem = (e)=>{
+    
+  }
+
   componentDidMount() {
     console.error("temp12 did mount");
   }
@@ -581,6 +586,7 @@ export default class Temp extends Component {
                       //    {  x:current.x,
                       //      y:current.y}
                       //  }
+                      feedbackItem={this.feedbackItem}
                       handlePositionChange={this.handlePositionChange}
                       logoHeight={this.state.height}
                       logoWidth={this.state.width}

@@ -281,6 +281,10 @@ export default class TempView extends Component {
     // this.setState({items:temp})
     // this.forceUpdate();
   };
+
+  feedbackItem = ()=>{
+      console.log(123)
+  }
   render() {
     let 
     owner,
@@ -606,6 +610,7 @@ export default class TempView extends Component {
                       //    {  x:current.x,
                       //      y:current.y}
                       //  }
+                      feedbackItem = {this.feedbackItem}
                       handlePositionChange={this.handlePositionChange}
                       logoHeight={this.state.height}
                       logoWidth={this.state.width}

@@ -5,13 +5,13 @@ import { v4 as uuidv4 } from "uuid";
 import gql from "graphql-tag";
 import { Query, Mutation }from "react-apollo";
 import {useMutation,useQuery} from '@apollo/react-hooks'
-import QueryHelper from './QueryHelper'
+// import QueryHelper from './QueryHelper'
 const GET_LOGO = gql`
   query logo($logoId: String!) {
 
       logo(id: $logoId){
         title,
-        owner,items{text,color,fontSize,url,imgWidth,imgHeight,alt,id,z,x,y}
+        owner,items{type,text,color,fontSize,url,imgWidth,imgHeight,alt,id,z,x,y}
         ,backgroundColor,borderRadius,
         borderThickness,borderColor,
         height,
@@ -62,12 +62,13 @@ const UPDATE_LOGO = gql`
   }
 `;
 
+let cLogo = null;
 
 export default class EditLogoScreen extends Component {
     
     state = {
         title:"temp title",
-        height: 200,
+        height: 150,
         width: 200,
         backgroundColor: null,
         borderRadius: 0,
@@ -76,8 +77,12 @@ export default class EditLogoScreen extends Component {
         margin: 0,
         padding: 0,
         items:[]
-        ,editingItem: { type: "none" } };
+        ,editingItem: { type: "none" }
     
+        ,need2Load :true
+    };
+
+
     
       unselect = () => {
         this.setState({ editingItem: { type: "none" } });
@@ -85,6 +90,8 @@ export default class EditLogoScreen extends Component {
     
       componentDidMount() {
         console.error("temp1 did mount");
+        console.log(cLogo)
+        
         // const [get_logo,{data}] = useQuery(GET_LOGO)
 
         // let temp =get_logo()
@@ -246,16 +253,22 @@ export default class EditLogoScreen extends Component {
             margin,
             padding,
             items )
-          this.setState({height:height,
-    //       width:width,
-    //       backgroundColor:backgroundColor,
-    //       borderRadius:borderRadius,
-    //       borderThickness:borderThickness,
-    //       borderColor:borderColor,
-    //       margin:margin,
-    //       padding:padding,
-    //     title:title,
-    items:items})
+
+            if(this.state.need2Load){
+          this.setState({height:height,need2Load:false,
+          width:width,
+          backgroundColor:backgroundColor,
+          borderRadius:borderRadius,
+          borderThickness:borderThickness,
+          borderColor:borderColor,
+          margin:margin,
+          padding:padding,
+        title:title,
+        items:items
+    }
+    )
+
+}
       }
 
 
@@ -263,6 +276,12 @@ export default class EditLogoScreen extends Component {
           console.log(23333)
           console.log(logo)
           this.setState({height:logo.height})
+      }
+
+      feedbackItem=(e)=>{
+        //   console.error(e)
+        //   console.log(this.state.items.length)
+        //   this.setState({items:[...this.state.items,e]},console.log(this.state.items.length))
       }
     render() {
         let 
@@ -283,11 +302,13 @@ export default class EditLogoScreen extends Component {
           variables={{ logoId: this.props.match.params.id }}
         >
           {({ loading, error, data }) => {
+              cLogo=data
             console.log("temp", data);
             if (loading) return "Loading...";
             if (error) return `Error! ${error.message}`;
+            
 
-            // this.loadData2State(data)
+            this.loadData2State(data)
   
             return (    
                
@@ -302,7 +323,7 @@ export default class EditLogoScreen extends Component {
                 {(updateLogo, { loading, error }) => (
                
                <div className="container">
-                    <QueryHelper foo={this.foo} uid ={this.props.match.params.id} />
+                    {/* <QueryHelper foo={this.foo} uid ={this.props.match.params.id} /> */}
                <div className="panel panel-default">
                  <div className="panel-heading">
                    <div className="bg-secondary row">
@@ -594,8 +615,8 @@ export default class EditLogoScreen extends Component {
                          margin: (this.state.margin || margin) + "px",
                        }}
                      >
-                       {/* {
-                         this.state.items||data.logo.items.map((current) => {
+                       {
+                        data.logo.items.map((current) => {
                                 console.error('current',current)
                                 console.log(data.logo.height,data.logo.width)
                           return <Item
@@ -603,14 +624,15 @@ export default class EditLogoScreen extends Component {
                              //    {  x:current.x,
                              //      y:current.y}
                              //  }
+                             feedbackItem={this.feedbackItem}
                              handlePositionChange={this.handlePositionChange}
-                             logoHeight={this.state.height}
-                             logoWidth={this.state.width}
+                             logoHeight={this.state.backgroundColor?this.state.height:data.logo.height}
+                             logoWidth={this.state.backgroundColor?this.state.width:data.logo.width}
                              handleSelect={this.handleSelect}
                              item={current}
                            />
                        }
-                         )} */}
+                         )}
                      </div>
                    </div>
                    1
