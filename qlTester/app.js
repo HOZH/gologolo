@@ -49,16 +49,16 @@ app.use( cors());
 app.use(
   "/graphql",
   cors(),
-  passport.authenticate("jwt", { session: false }),
-  (req,res)=>{
-    console.log(req.body)
+  // passport.authenticate("jwt", { session: false }),
+  // (req,res)=>{
+  //   console.log(req.body)
   (graphqlHTTP({
       schema: schema,
       rootValue: global,
       graphiql: true,
     }))
-    (req,res)
-  }
+  //   (req,res)
+  // }
 );
 // let allowCrossDomain = function(req, res, next) {
 //   res.header('Access-Control-Allow-Origin', "*");

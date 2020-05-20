@@ -9,35 +9,35 @@ const typeDefs = `
 scalar DateTime
 
 type Item{
-  uid:String
+  id:String
   type:String
-  zOrder:Int
-  xPosition:Int
-  yPosition:Int
+  z:Int
+  x:Int
+  y:Int
   text: String
   color: String
   fontSize:Int
   url:String
   alt:String
-  width:Int
-  height:Int
+  imgWidth:Int
+  imgHeight:Int
 
 }
 
 
 input ItemInput{
-  uid:String!
+  id:String!
   type:String!
-  zOrder:Int!
-  xPosition:Int!
-  yPosition:Int!
+  z:Int!
+  x:Int!
+  y:Int!
   text: String
   color: String
   fontSize:Int
   url:String
   alt:String
-  width:Int
-  height:Int
+  imgWidth:Int
+  imgHeight:Int
 
 }
 

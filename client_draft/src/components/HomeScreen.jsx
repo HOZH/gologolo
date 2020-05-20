@@ -9,7 +9,7 @@ const GET_LOGOS = gql`
 query{
   logos{
     title,
-    _id,owner,items{type,text,color,fontSize,url,width,height,alt,uid,zOrder,xPosition,yPosition}
+    _id,owner,items{type,text,color,fontSize,url,imgWidth,imgHeight,alt,id,z,x,y}
     ,backgroundColor,borderRadius,
     borderThickness,borderColor,
     margin,
