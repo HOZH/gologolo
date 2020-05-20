@@ -107,7 +107,20 @@ export default class Temp extends Component {
   //    margin: null,
   //    backgroundColor: null,
   //  };
-  state = { ...this.temp_state, editingItem: { type: "none" } };
+  // state = { ...this.temp_state, editingItem: { type: "none" } };
+  state = {
+    title:"temp title",
+    height: 200,
+    width: 200,
+    backgroundColor: null,
+    borderRadius: 0,
+    borderThickness: 0,
+    borderColor: null,
+    margin: 0,
+    padding: 0,
+    items:[]
+    ,editingItem: { type: "none" } };
+
 
   unselect = () => {
     this.setState({ editingItem: { type: "none" } });
@@ -134,6 +147,7 @@ export default class Temp extends Component {
     console.log(1);
     // console.log(this.get_max_z_order())
     let newZ = this.get_max_z_order() + 1;
+    // let newZ =1;
     const textTemplate = {
       id: uuidv4(),
       x: 0,
@@ -308,8 +322,8 @@ export default class Temp extends Component {
 
                   addLogo({
                     variables: {
-                      owner:"temp owner",
-                      title:"temp title",
+                      owner:JSON.parse(window.localStorage.getItem('user'))["_id"]||"no user",
+                      title:title.value,
                        width:parseInt(width.value),
                        height:parseInt(height.value),
                       items:this.state.items,
@@ -592,6 +606,25 @@ export default class Temp extends Component {
                 }}
               >
                 <div className="form-group">
+                  <label htmlFor="title">
+                    Title:&nbsp;
+                    {this.state.title || "temp title"}
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="title"
+                    ref={(node) => {
+                      title = node;
+                    }}
+                    placeholder="title"
+                    defaultValue="temp title"
+                    value={this.state.title}
+                    onChange={this.handler}
+                    //   defaultValue={data.logo.backgroundColor}
+                  />
+                </div>
+                <div className="form-group">
                   <label htmlFor="backgroundColor">
                     Background Color:&nbsp;
                     {this.state.backgroundColor || "#00e100"}
@@ -723,7 +756,7 @@ export default class Temp extends Component {
                     type="range"
                     min="20"
                     max="500"
-                    defaultValue="0"
+                    defaultValue="200"
                     className="form-control"
                     name="height"
                     ref={(node) => {
@@ -745,7 +778,7 @@ export default class Temp extends Component {
                     type="range"
                     min="20"
                     max="500"
-                    defaultValue="0"
+                    defaultValue="200"
                     className="form-control"
                     name="width"
                     ref={(node) => {
@@ -759,9 +792,9 @@ export default class Temp extends Component {
                   />
                 </div>
 
-                <button type="submit" className="btn btn-success">
+                {/* <button type="submit" className="btn btn-success">
                   Submit
-                </button>
+                </button> */}
               </form>
             </div>
           </div>
