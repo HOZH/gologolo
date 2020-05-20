@@ -19,6 +19,7 @@ import TempHome from './components/TempHome'
 import RegisterScreen from './components/registerScreen/RegisterScreen'
 import ChangePassword from './components/ChangePassword'
 import TempEdit from './components/editScreen/TempEdit'
+import TempView from './components/viewScreen/TempView'
 
 const client = new ApolloClient({ uri: 'http://localhost:3000/graphql' });
 
@@ -34,7 +35,7 @@ ReactDOM.render(
           <Route path="/register" component={RegisterScreen} />
           <Route path="/edit/:id" component={TempEdit} />
           <Route path="/create" component={tempCreate} /> />
-          <Route path="/view/:id" component={TempEdit} />
+          <Route path="/view/:id" component={TempView} />
           <Route path="/login" component={LoginScreen} />
         </Switch>
       </div>
