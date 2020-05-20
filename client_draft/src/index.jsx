@@ -18,6 +18,7 @@ import Navbar from './components/navbar/Navtemp'
 import LoginScreen from './components/loginScreen/LoginScreen'
 import TempHome from './components/TempHome'
 import RegisterScreen from './components/registerScreen/RegisterScreen'
+<<<<<<< HEAD
 import TempView from './components/viewScreen/TempView'
 import TempEdit from './components/editScreen/TempEdit'
 const client = new ApolloClient({ uri: 'http://localhost:3000/graphql' });
@@ -46,6 +47,31 @@ ReactDOM.render(
         </Router>
     </ApolloProvider>, 
     document.getElementById('root')
+=======
+import ChangePassword from './components/ChangePassword'
+
+const client = new ApolloClient({ uri: 'http://localhost:3000/graphql' });
+
+ReactDOM.render(
+  <ApolloProvider client={client}>
+    <Router>
+      <div>
+        <Navbar />
+        <Switch>
+          {/* <Route exact path='/' component={HomeScreen} /> */}
+          <Route exact path="/" component={HomeScreen} />
+          <Route path="/change_password/:id/:token" component={ChangePassword} />
+          <Route path="/register" component={RegisterScreen} />
+          <Route path="/edit/:id" component={EditLogoScreen} />
+          <Route path="/create" component={tempCreate} /> />
+          <Route path="/view/:id" component={ViewLogoScreen} />
+          <Route path="/login" component={LoginScreen} />
+        </Switch>
+      </div>
+    </Router>
+  </ApolloProvider>,
+  document.getElementById("root")
+>>>>>>> 4b45f1880b3bf00bd8b705f1970a9369df75f6a5
 );
 
 // If you want your app to work offline and load faster, you can change
