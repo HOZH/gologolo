@@ -254,6 +254,12 @@ export default class EditLogoScreen extends Component {
             padding,
             items )
 
+            for(let i of items){
+
+                delete i.__typename
+            }
+            
+
             if(this.state.need2Load){
           this.setState({height:height,need2Load:false,
           width:width,
@@ -358,7 +364,18 @@ export default class EditLogoScreen extends Component {
                     borderColor.value,
                    parseInt(margin.value),
                     parseInt(padding.value))
-       
+       console.error(   this.props.match.params.id,
+       JSON.parse(window.localStorage.getItem('user'))["_id"]||"no user",
+        title.value,
+         parseInt(width.value),
+        parseInt(height.value),
+        this.state.items,
+        backgroundColor.value,
+        parseInt(borderRadius.value),
+         parseInt(borderThickness.value),
+         borderColor.value,
+          parseInt(margin.value),
+        parseInt(padding.value))
        
                          updateLogo({
                            variables: {
@@ -615,8 +632,10 @@ export default class EditLogoScreen extends Component {
                          margin: (this.state.margin || margin) + "px",
                        }}
                      >
+                         {/* {this.state.need2Load }
+                         {23333} */}
                        {
-                        data.logo.items.map((current) => {
+                        this.state.need2Load?data.logo.items.map((current) => {
                                 console.error('current',current)
                                 console.log(data.logo.height,data.logo.width)
                           return <Item
@@ -632,7 +651,26 @@ export default class EditLogoScreen extends Component {
                              item={current}
                            />
                        }
-                         )}
+                         ):
+                         
+                         this.state.items.map((current) => {
+                            console.error('current',current)
+                            console.log(data.logo.height,data.logo.width)
+                      return <Item
+                         //  position={
+                         //    {  x:current.x,
+                         //      y:current.y}
+                         //  }
+                         feedbackItem={this.feedbackItem}
+                         handlePositionChange={this.handlePositionChange}
+                         logoHeight={this.state.backgroundColor?this.state.height:data.logo.height}
+                         logoWidth={this.state.backgroundColor?this.state.width:data.logo.width}
+                         handleSelect={this.handleSelect}
+                         item={current}
+                       />
+                   }
+                     )
+                         }
                      </div>
                    </div>
                    1
