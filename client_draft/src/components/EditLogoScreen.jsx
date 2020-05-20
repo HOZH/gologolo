@@ -98,6 +98,7 @@ class EditLogoScreen extends Component {
               key={data.logo._id}
               onCompleted={(e) => {
                 // console.log("current e", e);
+        
 
                 this.props.history.push(`/`);
               }}

@@ -99,7 +99,9 @@ export default class EditLogoScreen extends Component {
         // console.log(temp)
       }
       componentWillUnmount() {
+        window.location.reload(true);
         console.error("temp will unmount");
+        console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");
       }
       get_max_z_order = () => {
         let maxZ = -1;
@@ -166,6 +168,11 @@ export default class EditLogoScreen extends Component {
           editingItem: textTemplate,
         });
       };
+
+      force=()=>{
+          console.log('2djfsakljfskldsajflkajlkdfajslkdfasjlkdafjdslkjdfasljkl')
+        this.forceUpdate()
+      }
     
       deleteItem = () => {
         const deletingId = this.state.editingItem.id;
@@ -213,7 +220,17 @@ export default class EditLogoScreen extends Component {
           current[event.target.name] = event.target.value;
         }
         console.log(current);
-        this.setState({ editingItem: current });
+        const temp =this.state.items.map((e) => {
+            if (e.id == current.id) e={...current}
+    
+            return e;
+          })
+        this.setState({ items:temp,editingItem: current });
+       
+    //     $("body").append('<div id="overlay" style="background-color:grey;position:absolute;top:0;left:0;height:100%;width:100%;z-index:999"></div>');
+    //     setTimeout(function() {
+    //     document.getElementById("votebutton").disabled = false;
+    // }, 5000);
         // this.setState({ [event.target.name]: event.target.value });
     
         // console.log(123);
@@ -324,6 +341,7 @@ export default class EditLogoScreen extends Component {
                 onCompleted={(e) => {
   
                   this.props.history.push(`/`);
+                  this.force()
                 }}
               >
                 {(updateLogo, { loading, error }) => (
@@ -405,6 +423,8 @@ export default class EditLogoScreen extends Component {
                          borderColor.value=""
                          margin.value=""
                          padding.value="";
+
+                         this.force()
                        }
                      
                      
@@ -610,7 +630,7 @@ export default class EditLogoScreen extends Component {
                      <div
                        onClick={() => {
                          console.log("qwe");
-                         this.unselect();
+                        //  this.unselect();
                        }}
                        style={{
                          left: "40%",

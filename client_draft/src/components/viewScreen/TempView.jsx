@@ -229,11 +229,11 @@ export default class TempView extends Component {
     current.z = this.get_max_z_order() + 1;
     this.setState({
       editingItem: current,
-      items: this.state.items.map((e) => {
-        if (e.id == current.id) e.z = current.z;
+    //   items: this.state.items.map((e) => {
+    //     if (e.id == current.id) e.z = current.z;
 
-        return e;
-      }),
+    //     return e;
+    //   }),
     });
   };
 
@@ -259,6 +259,11 @@ export default class TempView extends Component {
     }
     console.log(current);
     this.setState({ editingItem: current });
+    //   items: this.state.items.map((e) => {
+    //     if (e.id == current.id) e.z = current.z;
+
+    //     return e;
+    //   }),
     // this.setState({ [event.target.name]: event.target.value });
 
     // console.log(123);

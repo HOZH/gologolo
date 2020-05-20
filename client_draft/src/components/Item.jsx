@@ -29,16 +29,16 @@ export default class Item extends Component {
                  componentDidMount() {
                    console.error("item did mount123",this.props.item.id);
 
-                   ReactDOM.findDOMNode(this).addEventListener('click', (event) => {
-                     console.log(2223)
-                     console.log(this)
-                    event.stopPropagation();
-                       this.props.handleSelect(
+                  //  ReactDOM.findDOMNode(this).addEventListener('click', (event) => {
+                  //    console.log(2223)
+                  //    console.log(this)
+                  //   event.stopPropagation();
+                  //      this.props.handleSelect(
                       
-                         this.props.item)
-                              console.log(2223)
+                  //        this.props.item)
+                  //             console.log(2223)
 
-                  }, false);
+                  // }, false);
                   console.log(this.props.feedbackItem)
                   this.props.feedbackItem(this.props.item)
                  }
@@ -51,6 +51,7 @@ export default class Item extends Component {
 
                  handleStop = (event, dragging) => {
                    console.log(123);
+                   console.log(1)
 
                    console.log(event);
 
@@ -68,24 +69,27 @@ export default class Item extends Component {
                      onStop: this.handleStop,
                    };
 
-                   const leftBoundary = 0 - Number(currentItem.x);
-                   const topBoundary = 0 - Number(currentItem.y);
+                  //  const leftBoundary = 0 - Number(currentItem.x);
+                  //  const topBoundary = 0 - Number(currentItem.y);
 
-                   const rightBoundary =
-                     this.props.logoWidth - Number(currentItem.x);
-                   const buttomBoundary =
-                     this.props.logoHeight - Number(currentItem.y);
+                  //  const rightBoundary =
+                  //    this.props.logoWidth - Number(currentItem.x);
+                  //  const buttomBoundary =
+                  //    this.props.logoHeight - Number(currentItem.y);
 
-                   console.log(
-                     leftBoundary,
-                     topBoundary,
-                     rightBoundary,
-                     buttomBoundary
-                   );
+                  //  console.log(
+                  //    leftBoundary,
+                  //    topBoundary,
+                  //    rightBoundary,
+                  //    buttomBoundary
+                  //  );
 
                    
                    return (
                      <div
+
+                     onMouseDown={this.props.handleSelect.bind(this, currentItem)}
+                 onClick={this.props.handleSelect.bind(this, currentItem)}
                    
                        id={currentItem.id}
                        style= {{                             
@@ -93,7 +97,7 @@ export default class Item extends Component {
                       }}
                        // style={{overflow: "auto"}}
                      >
-                       <Draggable
+                       <Draggable 
                         //  {...dragHandlers}
                         onStop={this.handleStop}
                         defaultPosition={{
