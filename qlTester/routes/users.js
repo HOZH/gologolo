@@ -5,6 +5,17 @@ const passport = require("passport");
 const utils = require("../lib/utils");
 const base64url = require("base64url");
 var cors = require("cors");
+const nodemailer = require("nodemailer");
+const transporter = nodemailer.createTransport({
+  service: "Gmail",
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
+  auth: {
+    user: "cse356warmup3@gmail.com",
+    pass: "Cse356warmup", // naturally, replace both with your real credentials or an application-specific password
+  },
+});
 
 /* GET users listing. */
 var corsOptions = {
@@ -18,6 +29,7 @@ var corsOptions = {
 }
 router.use("*", cors());
 router.get('/', function(req, res, next) {
+  
   res.send('respond with a resource');
 });
 
@@ -41,6 +53,41 @@ router.get('/123',(req,res)=>{
 
   return res.json({"hong zheng":"okay"})
 })
+
+router.post("/email", (req, res) => {
+  console.log(req.body.email)
+
+   User.findOne({ email: req.body.email }).then((user) => {
+     if (user) {
+
+const token = utils.issueJWT(user);
+// const host = "http://34.86.220.228/";
+const host = "http://localhost:3001";
+
+  const link = host+'/change_password/'+req.body.email + "/" + token.token.split(' ')[1];
+// let text=''
+  const html = "<a href=" + link + ">" + 'click this link to reset your password for email '+req.body.email + "</a>";
+  // console.log(link)
+  console.log(html);
+  // console.log(typeof token.token);
+  
+  const mailOptions = {
+    from: "vindication@enron.com",
+    to: req.body.email,
+    subject: "password changing request",
+    html: html,
+  };
+  transporter.sendMail(mailOptions);
+  return res.json({ "hong zheng": "okay", token: "true" });
+
+
+     }
+     else{
+        return res.status(400).json({ token: "false" });
+     }
+   });
+ 
+});
 router.post('/123',(req,res)=>{
 console.log('t')
   return res.json({"hong zheng":"okay"})
@@ -75,6 +122,29 @@ router.post("/login", cors(),(req, res, next) => {
     })
     .catch((err) => next(err));
 });
+
+router.post(
+  "/change_password",
+  // passport.authenticate("jwt", { session: false }),
+  (req, res, next) => {
+    const saltHash = utils.genPassword(req.body.password);
+
+    const salt = saltHash.salt;
+    const hash = saltHash.hash;
+
+    User.findOneAndUpdate(
+      { email: req.body.email },
+      {
+        salt: salt,
+        hash: hash,
+      }
+    ).then((user) => {
+      console.log(user);
+    });
+
+    return res.status(200).json({ token: "ok" });
+  }
+);
 
 // TODO
 router.post("/register", (req, res, next) => {
