@@ -9,7 +9,7 @@ const GET_LOGO = gql`
 
       logo(id: $logoId){
         title,
-        owner,items{text,color,fontSize,url,width,height,alt,uid,zOrder,xPosition,yPosition}
+        owner,items{text,color,fontSize,url,imgWidth,imgHeight,alt,id,z,x,y}
         ,backgroundColor,borderRadius,
         borderThickness,borderColor,
         margin,

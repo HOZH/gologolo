@@ -92,7 +92,7 @@ class EditLogoScreen extends Component {
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
 
-          return (
+          return (    
             <Mutation
               mutation={UPDATE_LOGO}
               key={data.logo._id}

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
+// import { ApolloProvider } from '@apollo/react-hooks'
 import { BrowserRouter as Router, Route,Switch } from 'react-router-dom';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import * as serviceWorker from './serviceWorker';
@@ -17,7 +18,8 @@ import Navbar from './components/navbar/Navtemp'
 import LoginScreen from './components/loginScreen/LoginScreen'
 import TempHome from './components/TempHome'
 import RegisterScreen from './components/registerScreen/RegisterScreen'
-
+import TempView from './components/viewScreen/TempView'
+import TempEdit from './components/editScreen/TempEdit'
 const client = new ApolloClient({ uri: 'http://localhost:3000/graphql' });
 
 ReactDOM.render(
@@ -29,10 +31,14 @@ ReactDOM.render(
                {/* <Route exact path='/' component={HomeScreen} /> */}
                <Route exact path='/' component={HomeScreen} />
                <Route path='/register' component={RegisterScreen} />
-
-                <Route path='/edit/:id' component={EditLogoScreen} />
+{/* 
+                <Route path='/edit/:id' component={EditLogoScreen} /> */}
+                
+                <Route path='/edit/:id' component={TempEdit} />
                 <Route path='/create' component={tempCreate}/> />
-                <Route path='/view/:id' component={ViewLogoScreen} />
+                <Route path='/view/:id' component={TempEdit} />
+
+                {/* <Route path='/view/:id' component={ViewLogoScreen} /> */}
                 <Route path="/login" component={LoginScreen}/>
 
                </Switch>
@@ -46,3 +52,4 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://create-react-app.dev/docs/making-a-progressive-web-app/
 serviceWorker.unregister();
+export {client}

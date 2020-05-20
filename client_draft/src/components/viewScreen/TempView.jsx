@@ -1,9 +1,23 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Item from "./Item";
+import Item from "../Item";
 import { v4 as uuidv4 } from "uuid";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+const GET_LOGO = gql`
+  query logo($logoId: String!) {
+
+      logo(id: $logoId){
+        title,
+        owner,items{text,color,fontSize,url,imgWidth,imgHeight,alt,id,z,x,y}
+        ,backgroundColor,borderRadius,
+        borderThickness,borderColor,
+        margin,
+        padding,lastUpdate
+      }
+      
+  }
+`;
 
 const ADD_LOGO = gql`
   mutation AddLogo(
@@ -40,7 +54,7 @@ const ADD_LOGO = gql`
 
   }
 `;
-export default class Temp extends Component {
+export default class TempView extends Component {
   temp_state = {
     title:"temp1",
     height: 400,
@@ -127,7 +141,7 @@ export default class Temp extends Component {
   };
 
   componentDidMount() {
-    console.error("temp12 did mount");
+    console.error("temp did mount");
   }
   componentWillUnmount() {
     console.error("temp will unmount");
@@ -227,8 +241,6 @@ export default class Temp extends Component {
     console.log(
       "handle" + event.target.name + "Change to " + event.target.value
     );
-    console.log(event.target.value,typeof event.target.value)
-
     this.setState({ [event.target.name]: event.target.value });
 
     // console.log(123);
@@ -251,7 +263,6 @@ export default class Temp extends Component {
 
     // console.log(123);
   };
-
   handlePositionChange = (x, y) => {
     console.error(234);
     console.log(x, y);
@@ -261,7 +272,14 @@ export default class Temp extends Component {
     current.y = y;
     console.log(current);
     this.setState({ editingItem: current });
-  
+    // let temp = this.state.items.map(e=>{
+    //     if (e.id== this.state.editingItem.id){
+    //         e = {...this.state.editingItem}
+    //     }
+    //     return e
+    // })
+    // this.setState({items:temp})
+    // this.forceUpdate();
   };
   render() {
     let 
@@ -544,6 +562,13 @@ export default class Temp extends Component {
                  <button type="submit" className="btn btn-success">
                   Submit
                 </button>
+                <Link to={`/edit/${this.props.match.params.id}`} className="btn btn-success">
+                     Edit
+                   </Link>
+                   &nbsp;
+                   <button type="submit" className="btn btn-danger">
+                     Delete
+                   </button>
               </form>
             </div>
             {/* {loading && <p>Loading...</p>} */}
