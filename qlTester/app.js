@@ -38,21 +38,34 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-
+// app.use(express.static(path.join(__dirname, "public")));
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  next();
+});
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use("*", cors());
+app.use( cors());
 app.use(
   "/graphql",
   cors(),
   passport.authenticate("jwt", { session: false }),
-  graphqlHTTP({
-    schema: schema,
-    rootValue: global,
-    graphiql: true,
-  })
+  (req,res)=>{
+    console.log(req.body)
+  (graphqlHTTP({
+      schema: schema,
+      rootValue: global,
+      graphiql: true,
+    }))
+    (req,res)
+  }
 );
+// let allowCrossDomain = function(req, res, next) {
+//   res.header('Access-Control-Allow-Origin', "*");
+//   res.header('Access-Control-Allow-Headers', "*");
+//   next();
+// }
+// app.use(allowCrossDomain);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

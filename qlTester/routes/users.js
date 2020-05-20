@@ -4,8 +4,19 @@ const User = mongoose.model("User");
 const passport = require("passport");
 const utils = require("../lib/utils");
 const base64url = require("base64url");
+var cors = require("cors");
 
 /* GET users listing. */
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+router.use("*", cors());
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
@@ -26,11 +37,23 @@ router.get(
   }
 );
 
-router.post("/login", (req, res, next) => {
-  User.findOne({ username: req.body.username })
+router.get('/123',(req,res)=>{
+
+  return res.json({"hong zheng":"okay"})
+})
+router.post('/123',(req,res)=>{
+console.log('t')
+  return res.json({"hong zheng":"okay"})
+})
+router.post("/login", cors(),(req, res, next) => {
+  console.log(1234)
+  console.log(req.body)
+  // return res.json({"hong zheng":"okay"})
+  User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user) {
-        res.status(404).json({ success: false, msg: "could not find user" });
+        return    res.status(404).json({ token:"false",reason:"email"});
+
       }
       const isValid = utils.validPassword(
         req.body.password,
@@ -40,16 +63,14 @@ router.post("/login", (req, res, next) => {
 
       if (isValid) {
         const tokenObject = utils.issueJWT(user);
-        res.status(200).json({
+       return res.status(200).json({
           success: true,
           user: user,
           token: tokenObject.token,
           expires: tokenObject.expires,
         });
       } else {
-        res
-          .status(401)
-          .json({ success: false, msg: "you entered the wrong password" });
+        return    res.status(401).json({ token:"false",reason:"password"});
       }
     })
     .catch((err) => next(err));
@@ -66,7 +87,16 @@ router.post("/register", (req, res, next) => {
     username: req.body.username,
     hash: hash,
     salt: salt,
+    email:req.body.email
   });
+
+
+  User.findOne({ email: req.body.email })
+    .then((user) => {
+      if (user) {
+        return    res.status(400).json({ token:"false"});
+
+      }})
 
   newUser
     .save()

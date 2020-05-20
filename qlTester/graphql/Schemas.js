@@ -43,6 +43,7 @@ input ItemInput{
 
 
   type Logo {
+    title:String
     _id: String
     owner:String
     items: [Item]
@@ -84,8 +85,8 @@ type Query {
 
 type Mutation{
 
-    addLogo(owner:String!,width:Int!,height:Int!, items:[ItemInput],backgroundColor:String!,borderRadius:Int!,borderThickness:Int!,borderColor:String!,margin:Int!,padding:Int!): Logo
-    updateLogo(id:String!,owner:String!,width:Int!,height:Int!, items:[ItemInput],backgroundColor:String!,borderRadius:Int!,borderThickness:Int!,borderColor:String!,margin:Int!,padding:Int!): Logo
+    addLogo(title:String!,owner:String!,width:Int!,height:Int!, items:[ItemInput],backgroundColor:String!,borderRadius:Int!,borderThickness:Int!,borderColor:String!,margin:Int!,padding:Int!): Logo
+    updateLogo(title:String!,id:String!,owner:String!,width:Int!,height:Int!, items:[ItemInput],backgroundColor:String!,borderRadius:Int!,borderThickness:Int!,borderColor:String!,margin:Int!,padding:Int!): Logo
     removeLogo(id:String!):Logo
     removeAllLogos:myBoolean
     removeLogosByUser(owner:String!):myBoolean
