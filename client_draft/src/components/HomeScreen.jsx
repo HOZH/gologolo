@@ -4,6 +4,7 @@ import '../App.css';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import Banner from './Banner'
+import Navtemp from './navbar/Navtemp'
 const GET_LOGOS_BY_USER = gql`
   query logosByUser($owner:String!) {
 
@@ -53,7 +54,9 @@ class HomeScreen extends Component {
                     console.log(data)
 
                     return (
-                      <div className="container row">
+                      <div className="container">
+                        <div className="row">
+                        <Navtemp/>
                         <div className="col s4 bg-secondary text-white">
                           <h3>Recent Work</h3>
                           {data.logosByUser.map((logo, index) => (
@@ -87,6 +90,7 @@ class HomeScreen extends Component {
                               Add Logo
                             </Link>
                           </div>
+                        </div>
                         </div>
                       </div>
                     );

@@ -4,6 +4,7 @@ import Item from "./Item";
 import { v4 as uuidv4 } from "uuid";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import Navtemp from './navbar/Navtemp'
 
 const ADD_LOGO = gql`
   mutation AddLogo(
@@ -296,15 +297,13 @@ export default class Temp extends Component {
       onCompleted={() => this.props.history.push("/"+JSON.parse(window.localStorage.getItem('user'))._id)}
     >
       {(addLogo, { loading, error }) => (
-      <div className="container">
+      <div className="container ">
+
         <div className="panel panel-default">
           <div className="panel-heading">
-            <div className="bg-secondary row">
-              <h4 className=" btn btn-secondary">
-                {/* <Link className="text-white" to="/">
-                                 Home
-                               </Link> */}
-              </h4>
+          <div className="row">
+          <Navtemp/>
+
             </div>
             <h4 className="panel-title bg-danger text-white row">
               &nbsp;&nbsp;Create Logo
@@ -812,7 +811,7 @@ export default class Temp extends Component {
                 </button> */}
               </form>
             </div>
-          </div>
+            </div>
         </div>
       </div>
       )}

@@ -8,14 +8,10 @@ import * as serviceWorker from './serviceWorker';
 
 // THESE ARE OUR REACT SCREENS, WHICH WE WILL ROUTE HERE
 import HomeScreen from './components/HomeScreen';
-import EditLogoScreen from './components/EditLogoScreen';
-import CreateLogoScreen from './components/CreateLogoScreen';
-import ViewLogoScreen from './components/ViewLogoScreen';
+
 import tempCreate from './components/TempCreate'
-// import Navbar from './components/navbar/Navbar';
 import Navbar from './components/navbar/Navtemp'
 import LoginScreen from './components/loginScreen/LoginScreen'
-import TempHome from './components/TempHome'
 import RegisterScreen from './components/registerScreen/RegisterScreen'
 import ChangePassword from './components/ChangePassword'
 import TempEdit from './components/editScreen/TempEdit'
@@ -27,7 +23,7 @@ ReactDOM.render(
   <ApolloProvider client={client}>
     <Router>
       <div>
-        <Navbar />
+
         <Switch>
           <Route exact path='/' component={LoginScreen} />
           

@@ -5,6 +5,8 @@ import { v4 as uuidv4 } from "uuid";
 import gql from "graphql-tag";
 import { Query, Mutation }from "react-apollo";
 import {useMutation,useQuery} from '@apollo/react-hooks'
+import Navtemp from '../navbar/Navtemp'
+
 // import QueryHelper from './QueryHelper'
 const GET_LOGO = gql`
   query logo($logoId: String!) {
@@ -364,15 +366,13 @@ export default class EditLogoScreen extends Component {
                     {/* <QueryHelper foo={this.foo} uid ={this.props.match.params.id} /> */}
                <div className="panel panel-default">
                  <div className="panel-heading">
-                   <div className="bg-secondary row">
-                     <h4 className=" btn btn-secondary">
-                       {/* <Link className="text-white" to="/">
-                                        Home
-                                      </Link> */}
-                     </h4>
+                   <div className="row">
+                   <Navtemp/>
+
                    </div>
                    <h4 className="panel-title bg-danger text-white row">
-                     &nbsp;&nbsp;Create Logo
+
+                     &nbsp;&nbsp;Edit Logo
                    </h4>{" "}
                  </div>
                  <div className="panel-body row">

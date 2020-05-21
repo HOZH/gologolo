@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 
 import {Redirect} from 'react-router-dom';
 import Banner from '../Banner'
+import Navtemp from '../navbar/Navtemp'
+
 
 
 
@@ -88,6 +90,7 @@ export default class LoginScreen extends Component {
         return (
             <div className="container">
                 <div className="row">
+                    <Navtemp/>
                     <form onSubmit={this.doSubmit} className="form-signin">
                         <div className="input-field">
                             <label htmlFor="email">Email</label>

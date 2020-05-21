@@ -9,6 +9,8 @@ import {useMutation,useQuery} from '@apollo/react-hooks'
 import html2canvas from 'html2canvas';
 import base64url from 'base64url'
 import domtoimage from 'dom-to-image';
+import Navtemp from '../navbar/Navtemp'
+
 const GET_LOGO = gql`
   query logo($logoId: String!) {
 
@@ -157,15 +159,13 @@ export default class EditLogoScreen extends Component {
           {/* <QueryHelper foo={this.foo} uid ={this.props.match.params.id} /> */}
      <div className="panel panel-default">
        <div className="panel-heading">
-         <div className="bg-secondary row">
-           <h4 className=" btn btn-secondary">
-             {/* <Link className="text-white" to="/">
-                              Home
-                            </Link> */}
-           </h4>
+         <div className="row">
+         <Navtemp/>
+
+          
          </div>
          <h4 className="panel-title bg-danger text-white row">
-           &nbsp;&nbsp;Create Logo
+           &nbsp;&nbsp;View Logo
         
          </h4>{" "}
 
