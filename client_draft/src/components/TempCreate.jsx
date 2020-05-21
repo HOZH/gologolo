@@ -594,6 +594,7 @@ export default class Temp extends Component {
                       //    {  x:current.x,
                       //      y:current.y}
                       //  }
+                      disableDrag={false}
                       feedbackItem={this.feedbackItem}
                       handlePositionChange={this.handlePositionChange}
                       logoHeight={this.state.height}

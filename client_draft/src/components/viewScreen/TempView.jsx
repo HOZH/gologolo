@@ -304,6 +304,7 @@ export default class EditLogoScreen extends Component {
                    //    {  x:current.x,
                    //      y:current.y}
                    //  }
+                   disableDrag={true}
                    feedbackItem={this.feedbackItem}
                    handlePositionChange={this.handlePositionChange}
                    logoHeight={data.logo.height}

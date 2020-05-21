@@ -99,6 +99,7 @@ export default class Item extends Component {
                        // style={{overflow: "auto"}}
                      >
                        <Draggable 
+                       disabled={this.props.disableDrag}
                         //  {...dragHandlers}
                         onStop={this.handleStop}
                         defaultPosition={{
