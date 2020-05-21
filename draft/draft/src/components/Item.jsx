@@ -27,8 +27,8 @@ export default class Item extends Component {
 
                  onStop = (a, b) => {
                    console.log("stopping");
-                   console.log(a);
-                   console.log(b);
+                  //  console.log(a);
+                  //  console.log(b);
                    // this.setState({activeDrags: --this.state.activeDrags});
                    //  this.props.handlePositionChange(a,)
                  };
@@ -42,13 +42,13 @@ export default class Item extends Component {
                  componentDidMount() {
                   //  console.error("item did mount",this.props.item.id);
                    ReactDOM.findDOMNode(this).addEventListener('click', (event) => {
-                     console.log(2223)
-                     console.log(this)
+                    //  console.log(2223)
+                    //  console.log(this)
                     event.stopPropagation();
                        this.props.handleSelect(
                       
                          this.props.item)
-                              console.log(2223)
+                              // console.log(2223)
 
                   }, false);
                  }
@@ -61,13 +61,13 @@ export default class Item extends Component {
                  }
 
                  handleStop = (event, dragging) => {
-                   console.log(123);
+                  //  console.log(123);
 
-                   console.log(event);
+                  //  console.log(event);
 
-                   console.log(dragging);
-                   console.log(dragging.x);
-                   console.log(dragging.y);
+                  //  console.log(dragging);
+                  //  console.log(dragging.x);
+                  //  console.log(dragging.y);
                    this.props.handlePositionChange(dragging.x, dragging.y);
                   //  this.forceUpdate();
 

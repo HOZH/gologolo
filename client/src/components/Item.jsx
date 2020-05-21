@@ -19,9 +19,9 @@ export default class Item extends Component {
                  };
 
                  onStop = (a, b) => {
-                   console.log("stopping");
-                   console.log(a);
-                   console.log(b);
+                  //  console.log("stopping");
+                  //  console.log(a);
+                  //  console.log(b);
                    // this.setState({activeDrags: --this.state.activeDrags});
                    //  this.props.handlePositionChange(a,)
                  };
@@ -40,7 +40,7 @@ export default class Item extends Component {
                   //             console.log(2223)
 
                   // }, false);
-                  console.log(this.props.feedbackItem)
+                  // console.log(this.props.feedbackItem)
                   this.props.feedbackItem(this.props.item)
                  }
                  componentWillUnmount() {
@@ -51,14 +51,14 @@ export default class Item extends Component {
                  }
 
                  handleStop = (event, dragging) => {
-                   console.log(123);
-                   console.log(1)
+                  //  console.log(123);
+                  //  console.log(1)
 
-                   console.log(event);
+                  //  console.log(event);
 
-                   console.log(dragging);
-                   console.log(dragging.x);
-                   console.log(dragging.y);
+                  //  console.log(dragging);
+                  //  console.log(dragging.x);
+                  //  console.log(dragging.y);
                    this.props.handlePositionChange(dragging.x, dragging.y);
 
                  };

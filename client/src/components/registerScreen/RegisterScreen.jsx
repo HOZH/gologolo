@@ -47,10 +47,10 @@ export default class RegisterScreen extends Component {
     }
     else{
         this.setState({mode:true})
-        console.log(data)
-        console.log(data.token)
-        console.log(data.token.token)
-        console.log(data.user)
+        // console.log(data)
+        // console.log(data.token)
+        // console.log(data.token.token)
+        // console.log(data.user)
 
         // " "+data.token.token+" "
         window.localStorage.setItem('token'," "+data.token.token+" ")

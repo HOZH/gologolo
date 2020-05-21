@@ -27,7 +27,7 @@ export default class LoginScreen extends Component {
     }
     sendEmail = (e)=>{
         e.preventDefault();
-        console.log(123)
+        // console.log(123)
         fetch('http://localhost:3000/users/email', {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             mode: 'cors', // no-cors, *cors, same-origin
@@ -40,8 +40,8 @@ export default class LoginScreen extends Component {
             },
             body:JSON.stringify({email:this.state.fp})
         }).then(res=>{
-            console.log(res)
-            console.log(23333)
+            // console.log(res)
+            // console.log(23333)
 
             this.setState({sent:true})
         })
@@ -49,7 +49,7 @@ export default class LoginScreen extends Component {
     }
     doSubmit = (e) => {
         e.preventDefault();
-        console.log(123)
+        // console.log(123)
         
 
         
@@ -67,7 +67,7 @@ export default class LoginScreen extends Component {
         })
 .then(res=>res.json())
         .then(data=>{
-            console.log(data)
+            // console.log(data)
             if(data.token=="false"){
                 if(data.reason=="email")
                 this.setState({mode:"invalid-email"})
@@ -97,7 +97,7 @@ export default class LoginScreen extends Component {
         })
 .then(res=>res)
         .then(data=>{
-            console.log(data)
+            // console.log(data)
         })
             }
         })

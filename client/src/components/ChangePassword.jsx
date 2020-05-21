@@ -20,7 +20,7 @@ export default class ChangePassword extends Component {
 
   doSubmit = (e) => {
     e.preventDefault();
-    console.log(123);
+    // console.log(123);
 
     fetch("http://localhost:3000/users/change_password", {
       method: "POST", // *GET, POST, PUT, DELETE, etc.

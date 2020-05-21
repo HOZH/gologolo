@@ -141,9 +141,9 @@ export default class Temp extends Component {
   }
   get_max_z_order = () => {
     let maxZ = -1;
-    console.log(this.state.items);
+    // console.log(this.state.items);
     for (let i of this.state.items) {
-      console.log(i);
+      // console.log(i);
       if (i.z > maxZ) maxZ = i.z;
     }
 
@@ -151,7 +151,7 @@ export default class Temp extends Component {
   };
 
   addText = () => {
-    console.log(1);
+    // console.log(1);
     // console.log(this.get_max_z_order())
     let newZ = this.get_max_z_order() + 1;
     // let newZ =1;
@@ -179,7 +179,7 @@ export default class Temp extends Component {
   };
 
   addImage = () => {
-    console.log(2);
+    // console.log(2);
 
     let newZ = this.get_max_z_order() + 1;
     const textTemplate = {
@@ -216,9 +216,9 @@ export default class Temp extends Component {
   handleSelect = (item) => {
     // console.error("222222222222222222222222222222");
 
-    console.log(item);
+    // console.log(item);
     let current = this.state.items.find((e) => e.id == item.id);
-    console.log(current);
+    // console.log(current);
     current.z = this.get_max_z_order() + 1;
     this.setState({
       editingItem: current,
@@ -261,12 +261,12 @@ export default class Temp extends Component {
 
   handlePositionChange = (x, y) => {
     // console.error(234);
-    console.log(x, y);
+    // console.log(x, y);
     let current = this.state.editingItem;
 
     current.x = x;
     current.y = y;
-    console.log(current);
+    // console.log(current);
     this.setState({ editingItem: current });
   
   };
@@ -315,22 +315,22 @@ export default class Temp extends Component {
                 // className="col-sm-4"
                 onSubmit={(e) => {
                   e.preventDefault();
-                  console.log(123)
+                  // console.log(123)
 
                   // console.log(width,height,this.state.items,backgroundColor,borderRadius,borderColor,borderThickness,margin,padding)
 
-                  console.log( "temp owner",
-                 "temp title",
-                 width.value,
-                height.value,
-                this.state.items,
-         backgroundColor.value,
-              parseInt(borderRadius.value),
-                 parseInt(borderThickness.value),
-             borderColor.value,
-            parseInt(margin.value),
-             parseInt(padding.value))
-                    console.log(JSON.parse(window.localStorage.getItem('user')))
+        //           console.log( "temp owner",
+        //          "temp title",
+        //          width.value,
+        //         height.value,
+        //         this.state.items,
+        //  backgroundColor.value,
+        //       parseInt(borderRadius.value),
+        //          parseInt(borderThickness.value),
+        //      borderColor.value,
+        //     parseInt(margin.value),
+        //      parseInt(padding.value))
+        //             console.log(JSON.parse(window.localStorage.getItem('user')))
 
                   addLogo({
                     variables: {

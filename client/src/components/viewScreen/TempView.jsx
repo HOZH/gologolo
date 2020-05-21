@@ -88,7 +88,7 @@ export default class EditLogoScreen extends Component {
   
       componentDidMount() {
         // console.error("temp1 did mount");
-        console.log(cLogo)
+        // console.log(cLogo)
         
         // const [get_logo,{data}] = useQuery(GET_LOGO)
 
@@ -105,7 +105,7 @@ export default class EditLogoScreen extends Component {
     
      baz = ()=>{}
       force=()=>{
-          console.log('2djfsakljfskldsajflkajlkdfajslkdfasjlkdafjdslkjdfasljkl')
+          // console.log('2djfsakljfskldsajflkajlkdfajslkdfasjlkdafjdslkjdfasljkl')
         this.forceUpdate()
       }
     
@@ -149,8 +149,8 @@ export default class EditLogoScreen extends Component {
         
         {({ loading, error, data }) => {
         console.debug(data);
-        console.log('fdsalfjhlkadsjfkljdsaklfdjalkSDkjflkasdjlkfj')
-        console.log(data)
+        // console.log('fdsalfjhlkadsjfkljdsaklfdjalkSDkjflkasdjlkfj')
+        // console.log(data)
         if (loading) return "Loading...";
         if (error) return `Error! ${error.message}`;
         return(
@@ -190,8 +190,8 @@ export default class EditLogoScreen extends Component {
                         proxy:"http://placeimg.com"
                       }).then(function(canvas) {
                   
-                          console.log(canvas);
-                          console.log(canvas.toDataURL())
+                          // console.log(canvas);
+                          // console.log(canvas.toDataURL())
                           // console.log(base64url.decode())
                           
                           // saveAs(canvas.toDataURL(), 'file-name.png');
@@ -202,7 +202,7 @@ export default class EditLogoScreen extends Component {
                             link.id='a99'
                         
                             if (typeof link.download === 'string') {
-                              console.log(1)
+                              // console.log(1)
 
                         
                                 link.href = canvas.toDataURL();
@@ -218,7 +218,7 @@ export default class EditLogoScreen extends Component {
                                 document.body.removeChild(link);
                         
                             } else {
-                              console.log(2)
+                              // console.log(2)
                                 window.open(canvas.toDataURL());
                         
                             }
@@ -248,10 +248,10 @@ export default class EditLogoScreen extends Component {
            >
              {(removeLogo, { loading, error }) => (
                   <div className="btn btn-danger" onClick={()=>{
-           console.log(123)
+          //  console.log(123)
            removeLogo({ variables: {id:this.props.match.params.id}})
           //  this.props.history.push("/5ec4af58b0355227fca40fb9")
-           console.log(window.localStorage.getItem('user')._id)
+          //  console.log(window.localStorage.getItem('user')._id)
 
            this.props.history.push("/"+JSON.parse(window.localStorage.getItem('user'))._id)
 
@@ -270,7 +270,7 @@ export default class EditLogoScreen extends Component {
            <div
            id='pic'
              onClick={() => {
-               console.log("qwe");
+               console.log("clicking");
               //  this.unselect();
              }}
              style={{
@@ -298,7 +298,7 @@ export default class EditLogoScreen extends Component {
              {
               data.logo.items.map((current) => {
                       // console.error('current',current)
-                      console.log(data.logo.height,data.logo.width)
+                      // console.log(data.logo.height,data.logo.width)
                 return <Item
                    //  position={
                    //    {  x:current.x,

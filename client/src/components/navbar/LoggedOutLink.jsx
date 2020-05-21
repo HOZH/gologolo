@@ -8,8 +8,8 @@ export default  class LoggedInLinks extends React.Component {
 
     // As in SignIn.jsx we need to use a function that gets as an argument firebase object
     logout = () => {
-        console.log(this.props);
-        console.log(this)
+        // console.log(this.props);
+        // console.log(this)
         window.localStorage.clear()
 
      

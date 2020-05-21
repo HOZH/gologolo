@@ -92,7 +92,7 @@ export default class EditLogoScreen extends Component {
     
       componentDidMount() {
         // console.error("temp1 did mount");
-        console.log(cLogo)
+        // console.log(cLogo)
         
         // const [get_logo,{data}] = useQuery(GET_LOGO)
 
@@ -106,9 +106,9 @@ export default class EditLogoScreen extends Component {
       }
       get_max_z_order = () => {
         let maxZ = -1;
-        console.log(this.state.items);
+        // console.log(this.state.items);
         for (let i of this.state.items) {
-          console.log(i);
+          // console.log(i);
           if (i.z > maxZ) maxZ = i.z;
         }
     
@@ -116,7 +116,7 @@ export default class EditLogoScreen extends Component {
       };
     
       addText = () => {
-        console.log(1);
+        // console.log(1);
         // console.log(this.get_max_z_order())
         let newZ = this.get_max_z_order() + 1;
         // let newZ =1;
@@ -144,7 +144,7 @@ export default class EditLogoScreen extends Component {
       };
     
       addImage = () => {
-        console.log(2);
+        // console.log(2);
     
         let newZ = this.get_max_z_order() + 1;
         const textTemplate = {
@@ -171,7 +171,7 @@ export default class EditLogoScreen extends Component {
       };
 
       force=()=>{
-          console.log('2djfsakljfskldsajflkajlkdfajslkdfasjlkdafjdslkjdfasljkl')
+          // console.log('2djfsakljfskldsajflkajlkdfajslkdfasjlkdafjdslkjdfasljkl')
         this.forceUpdate()
       }
     
@@ -186,9 +186,9 @@ export default class EditLogoScreen extends Component {
       handleSelect = (item) => {
         // console.error("222222222222222222222222222222");
     
-        console.log(item);
+        // console.log(item);
         let current = this.state.items.find((e) => e.id == item.id);
-        console.log(current);
+        // console.log(current);
         current.z = this.get_max_z_order() + 1;
         this.setState({
           editingItem: current,
@@ -201,26 +201,26 @@ export default class EditLogoScreen extends Component {
       };
     
       handler = (event) => {
-        console.log(
-          "handle" + event.target.name + "Change to " + event.target.value
-        );
+        // console.log(
+        //   "handle" + event.target.name + "Change to " + event.target.value
+        // );
         this.setState({ [event.target.name]: event.target.value });
     
         // console.log(123);
       };
     
       itemHandler = (event) => {
-        console.log(
-          "handle" + event.target.name + "Change to " + event.target.value
-        );
+        // console.log(
+        //   "handle" + event.target.name + "Change to " + event.target.value
+        // );
         let current = this.state.editingItem;
-        console.log(event.target.value,typeof event.target.value)
+        // console.log(event.target.value,typeof event.target.value)
         if(['imgHeight','imgWidth','fontSize'].includes(event.target.name))
         {current[event.target.name] = parseInt(event.target.value)}
         else{
           current[event.target.name] = event.target.value;
         }
-        console.log(current);
+        // console.log(current);
         const temp =this.state.items.map((e) => {
             if (e.id == current.id) e={...current}
     
@@ -238,19 +238,19 @@ export default class EditLogoScreen extends Component {
       };
       handlePositionChange = (x, y) => {
         // console.error(234);
-        console.log(x, y);
+        // console.log(x, y);
         let current = this.state.editingItem;
     
         current.x = x;
         current.y = y;
-        console.log(current);
+        // console.log(current);
         this.setState({ editingItem: current });
       
       };
 
       loadData2State =(eles)=>{
-          console.log('loading data 2 state')
-          console.log(eles)
+          // console.log('loading data 2 state')
+          // console.log(eles)
           const { title,
           height,
           width,
@@ -261,16 +261,16 @@ export default class EditLogoScreen extends Component {
           margin,
           padding,
           items } =eles.logo
-          console.log(title,
-            height,
-            width,
-            backgroundColor,
-            borderRadius,
-            borderThickness,
-            borderColor,
-            margin,
-            padding,
-            items )
+          // console.log(title,
+          //   height,
+          //   width,
+          //   backgroundColor,
+          //   borderRadius,
+          //   borderThickness,
+          //   borderColor,
+          //   margin,
+          //   padding,
+          //   items )
 
             for(let i of items){
 
@@ -337,7 +337,7 @@ export default class EditLogoScreen extends Component {
         >
           {({ loading, error, data }) => {
               cLogo=data
-            console.log("temp", data);
+            // console.log("temp", data);
             if (loading) return "Loading...";
             if (error) return `Error! ${error.message}`;
             
@@ -381,21 +381,21 @@ export default class EditLogoScreen extends Component {
                        // className="col-sm-4"
                        onSubmit={(e) => {
                          e.preventDefault();
-                         console.log(123)
+                        //  console.log(123)
        
                          // console.log(width,height,this.state.items,backgroundColor,borderRadius,borderColor,borderThickness,margin,padding)
        
-                         console.log( "temp owner",
-                        "temp title",
-                        width.value,
-                       height.value,
-                       this.state.items,
-                backgroundColor.value,
-                     parseInt(borderRadius.value),
-                        parseInt(borderThickness.value),
-                    borderColor.value,
-                   parseInt(margin.value),
-                    parseInt(padding.value))
+                //          console.log( "temp owner",
+                //         "temp title",
+                //         width.value,
+                //        height.value,
+                //        this.state.items,
+                // backgroundColor.value,
+                //      parseInt(borderRadius.value),
+                //         parseInt(borderThickness.value),
+                //     borderColor.value,
+                //    parseInt(margin.value),
+                //     parseInt(padding.value))
       //  console.error(   this.props.match.params.id,
       //  JSON.parse(window.localStorage.getItem('user'))["_id"]||"no user",
       //   title.value,
@@ -690,7 +690,7 @@ export default class EditLogoScreen extends Component {
                          
                          this.state.items.map((current) => {
                             // console.error('current',current)
-                            console.log(data.logo.height,data.logo.width)
+                            // console.log(data.logo.height,data.logo.width)
                       return <Item
                          //  position={
                          //    {  x:current.x,

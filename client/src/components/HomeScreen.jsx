@@ -50,8 +50,8 @@ class HomeScreen extends Component {
                     if (loading) return 'Loading...';
                     if (error) return `Error! ${error.message}`;
 
-                    console.log(12345)
-                    console.log(data)
+                    // console.log(12345)
+                    // console.log(data)
 
                     return (
                       <div className="container">

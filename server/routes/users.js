@@ -89,12 +89,12 @@ const host = "http://localhost:3001";
  
 });
 router.post('/123',(req,res)=>{
-console.log('t')
+// console.log('t')
   return res.json({"hong zheng":"okay"})
 })
 router.post("/login", cors(),(req, res, next) => {
-  console.log(1234)
-  console.log(req.body)
+  // console.log(1234)
+  // console.log(req.body)
   // return res.json({"hong zheng":"okay"})
   User.findOne({ email: req.body.email })
     .then((user) => {

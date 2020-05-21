@@ -87,10 +87,10 @@ unselect = ()=>{
    get_max_z_order =()=>{
 
                   let maxZ = -1
-                  console.log(this.state.items)
+                  // console.log(this.state.items)
                   for(let i of this.state.items)
                   {
-                    console.log(i)
+                    // console.log(i)
                     if(i.z>maxZ)
                     maxZ=i.z
                   }
@@ -101,7 +101,7 @@ unselect = ()=>{
                  }
 
                  addText=()=>{
-                  console.log(1)
+                  // console.log(1)
                   // console.log(this.get_max_z_order())
                   let newZ = this.get_max_z_order()+1
                                     const textTemplate = {
@@ -130,7 +130,7 @@ unselect = ()=>{
                   
                                    
                                    addImage = ()=>{
-                                    console.log(2)
+                                    // console.log(2)
 
 
                                     let newZ = this.get_max_z_order()+1
@@ -166,9 +166,9 @@ unselect = ()=>{
                  handleSelect = (item) => {
                   //  console.error('222222222222222222222222222222')
                  
-                   console.log(item);
+                  //  console.log(item);
                    let current = this.state.items.find((e) => e.id == item.id);
-                   console.log(current);
+                  //  console.log(current);
                    current.z = this.get_max_z_order()+1
                    this.setState({ editingItem: current,items: this.state.items.map(e=>{
                      if(e.id==current.id)
@@ -180,27 +180,27 @@ unselect = ()=>{
                  };
 
                  handler = (event) => {
-                   console.log(
-                     "handle" +
-                       event.target.name +
-                       "Change to " +
-                       event.target.value
-                   );
+                  //  console.log(
+                  //    "handle" +
+                  //      event.target.name +
+                  //      "Change to " +
+                  //      event.target.value
+                  //  );
                    this.setState({ [event.target.name]: event.target.value });
 
                    // console.log(123);
                  };
 
                  itemHandler = (event) => {
-                   console.log(
-                     "handle" +
-                       event.target.name +
-                       "Change to " +
-                       event.target.value
-                   );
+                  //  console.log(
+                  //    "handle" +
+                  //      event.target.name +
+                  //      "Change to " +
+                  //      event.target.value
+                  //  );
                    let current = this.state.editingItem;
                    current[event.target.name] = event.target.value;
-                   console.log(current);
+                  //  console.log(current);
                    this.setState({ editingItem: current });
                    // this.setState({ [event.target.name]: event.target.value });
 
@@ -209,12 +209,12 @@ unselect = ()=>{
 
                  handlePositionChange =(x,y)=>{
                   //  console.error(234)
-                   console.log(x,y)
-                        let current = this.state.editingItem;
+                  //  console.log(x,y)
+                  //       let current = this.state.editingItem;
                      
-                        current.x=x;
-                        current.y=y;
-                        console.log(current);
+                  //       current.x=x;
+                  //       current.y=y;
+                  //       console.log(current);
                         this.setState({ editingItem: current });
                         // let temp = this.state.items.map(e=>{
                         //     if (e.id== this.state.editingItem.id){
@@ -487,7 +487,7 @@ null}
                            <div className="col-7">
                              <div
                              onClick = {()=>{
-                               console.log('qwe')
+                               console.log('clicking')
                                this.unselect()
                              }}
                                style={{
