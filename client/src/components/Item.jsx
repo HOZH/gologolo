@@ -28,7 +28,7 @@ export default class Item extends Component {
 
             
                  componentDidMount() {
-                   console.error("item did mount123",this.props.item.id);
+                  //  console.error("item did mount123",this.props.item.id);
 
                   //  ReactDOM.findDOMNode(this).addEventListener('click', (event) => {
                   //    console.log(2223)
@@ -44,7 +44,7 @@ export default class Item extends Component {
                   this.props.feedbackItem(this.props.item)
                  }
                  componentWillUnmount() {
-                   console.error("item will unmount",this.props.item.id);
+                  //  console.error("item will unmount",this.props.item.id);
                   //  ReactDOM.findDOMNode(this).removeEventListener('click')
                  }
                static  getDerivedStateFromProps(){

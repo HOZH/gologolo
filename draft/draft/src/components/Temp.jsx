@@ -79,10 +79,10 @@ unselect = ()=>{
 }
 
                  componentDidMount() {
-                     console.error('temp did mount')
+                    //  console.error('temp did mount')
                  };
                  componentWillUnmount(){
-console.error('temp will unmount')
+// console.error('temp will unmount')
                  };
    get_max_z_order =()=>{
 
@@ -164,7 +164,7 @@ console.error('temp will unmount')
                                    }
 
                  handleSelect = (item) => {
-                   console.error('222222222222222222222222222222')
+                  //  console.error('222222222222222222222222222222')
                  
                    console.log(item);
                    let current = this.state.items.find((e) => e.id == item.id);
@@ -208,7 +208,7 @@ console.error('temp will unmount')
                  };
 
                  handlePositionChange =(x,y)=>{
-                   console.error(234)
+                  //  console.error(234)
                    console.log(x,y)
                         let current = this.state.editingItem;
                      

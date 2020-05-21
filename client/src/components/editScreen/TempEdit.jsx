@@ -91,7 +91,7 @@ export default class EditLogoScreen extends Component {
       };
     
       componentDidMount() {
-        console.error("temp1 did mount");
+        // console.error("temp1 did mount");
         console.log(cLogo)
         
         // const [get_logo,{data}] = useQuery(GET_LOGO)
@@ -102,7 +102,7 @@ export default class EditLogoScreen extends Component {
       }
       componentWillUnmount() {
         window.location.reload(true);
-        console.error("temp will unmount");
+        // console.error("temp will unmount");
       }
       get_max_z_order = () => {
         let maxZ = -1;
@@ -184,7 +184,7 @@ export default class EditLogoScreen extends Component {
       };
     
       handleSelect = (item) => {
-        console.error("222222222222222222222222222222");
+        // console.error("222222222222222222222222222222");
     
         console.log(item);
         let current = this.state.items.find((e) => e.id == item.id);
@@ -237,7 +237,7 @@ export default class EditLogoScreen extends Component {
         // console.log(123);
       };
       handlePositionChange = (x, y) => {
-        console.error(234);
+        // console.error(234);
         console.log(x, y);
         let current = this.state.editingItem;
     
@@ -396,18 +396,18 @@ export default class EditLogoScreen extends Component {
                     borderColor.value,
                    parseInt(margin.value),
                     parseInt(padding.value))
-       console.error(   this.props.match.params.id,
-       JSON.parse(window.localStorage.getItem('user'))["_id"]||"no user",
-        title.value,
-         parseInt(width.value),
-        parseInt(height.value),
-        this.state.items,
-        backgroundColor.value,
-        parseInt(borderRadius.value),
-         parseInt(borderThickness.value),
-         borderColor.value,
-          parseInt(margin.value),
-        parseInt(padding.value))
+      //  console.error(   this.props.match.params.id,
+      //  JSON.parse(window.localStorage.getItem('user'))["_id"]||"no user",
+      //   title.value,
+      //    parseInt(width.value),
+      //   parseInt(height.value),
+      //   this.state.items,
+      //   backgroundColor.value,
+      //   parseInt(borderRadius.value),
+      //    parseInt(borderThickness.value),
+      //    borderColor.value,
+      //     parseInt(margin.value),
+      //   parseInt(padding.value))
        
                          updateLogo({
                            variables: {
@@ -670,8 +670,8 @@ export default class EditLogoScreen extends Component {
                          {23333} */}
                        {
                         this.state.need2Load?data.logo.items.map((current) => {
-                                console.error('current',current)
-                                console.log(data.logo.height,data.logo.width)
+                                // console.error('current',current)
+                                // console.log(data.logo.height,data.logo.width)
                           return <Item
                              //  position={
                              //    {  x:current.x,
@@ -689,7 +689,7 @@ export default class EditLogoScreen extends Component {
                          ):
                          
                          this.state.items.map((current) => {
-                            console.error('current',current)
+                            // console.error('current',current)
                             console.log(data.logo.height,data.logo.width)
                       return <Item
                          //  position={

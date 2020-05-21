@@ -134,10 +134,10 @@ export default class Temp extends Component {
   }
 
   componentDidMount() {
-    console.error("temp12 did mount");
+    // console.error("temp12 did mount");
   }
   componentWillUnmount() {
-    console.error("temp will unmount");
+    // console.error("temp will unmount");
   }
   get_max_z_order = () => {
     let maxZ = -1;
@@ -214,7 +214,7 @@ export default class Temp extends Component {
   };
 
   handleSelect = (item) => {
-    console.error("222222222222222222222222222222");
+    // console.error("222222222222222222222222222222");
 
     console.log(item);
     let current = this.state.items.find((e) => e.id == item.id);
@@ -260,7 +260,7 @@ export default class Temp extends Component {
   };
 
   handlePositionChange = (x, y) => {
-    console.error(234);
+    // console.error(234);
     console.log(x, y);
     let current = this.state.editingItem;
 

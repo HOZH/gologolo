@@ -40,7 +40,7 @@ export default class Item extends Component {
                  //    // this.setState({activeDrags: --this.state.activeDrags});
                  //  };
                  componentDidMount() {
-                   console.error("item did mount",this.props.item.id);
+                  //  console.error("item did mount",this.props.item.id);
                    ReactDOM.findDOMNode(this).addEventListener('click', (event) => {
                      console.log(2223)
                      console.log(this)
@@ -53,7 +53,7 @@ export default class Item extends Component {
                   }, false);
                  }
                  componentWillUnmount() {
-                   console.error("item will unmount",this.props.item.id);
+                  //  console.error("item will unmount",this.props.item.id);
                   //  ReactDOM.findDOMNode(this).removeEventListener('click')
                  }
                static  getDerivedStateFromProps(){

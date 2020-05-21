@@ -87,7 +87,7 @@ export default class EditLogoScreen extends Component {
     
   
       componentDidMount() {
-        console.error("temp1 did mount");
+        // console.error("temp1 did mount");
         console.log(cLogo)
         
         // const [get_logo,{data}] = useQuery(GET_LOGO)
@@ -98,7 +98,7 @@ export default class EditLogoScreen extends Component {
       }
       componentWillUnmount() {
         // window.location.reload(true);
-        console.error("temp will unmount");
+        // console.error("temp will unmount");
       }
      
     
@@ -297,7 +297,7 @@ export default class EditLogoScreen extends Component {
                {23333} */}
              {
               data.logo.items.map((current) => {
-                      console.error('current',current)
+                      // console.error('current',current)
                       console.log(data.logo.height,data.logo.width)
                 return <Item
                    //  position={

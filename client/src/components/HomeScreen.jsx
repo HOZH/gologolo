@@ -28,7 +28,7 @@ class HomeScreen extends Component {
 
   componentWillUnmount() {
     window.location.reload(true);
-    console.error("temp will unmount");
+    // console.error("temp will unmount");
   }
 
     render() {
