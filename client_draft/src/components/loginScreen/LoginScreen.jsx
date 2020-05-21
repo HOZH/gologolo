@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 
 import {Redirect} from 'react-router-dom';
 import Banner from '../Banner'
+
+
+
 export default class LoginScreen extends Component {
     state = {
         email: '',
@@ -52,6 +55,8 @@ export default class LoginScreen extends Component {
                 window.localStorage.setItem('token',JSON.stringify(data.token))
                 window.localStorage.setItem('user',JSON.stringify(data.user))
 
+               this.props.history.push("/"+data.user._id)
+
 
                 fetch('http://localhost:3000/graphiql', {
             method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -75,7 +80,11 @@ export default class LoginScreen extends Component {
 
     render() {
         let {auth, authError} = this.props;
- 
+        let temp =window.localStorage.getItem('user')
+        if (temp) {
+            return <Redirect to={'/'+(JSON.parse(temp._id))}/>;
+        }
+        
         return (
             <div className="container">
                 <div className="row">

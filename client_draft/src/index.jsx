@@ -29,14 +29,15 @@ ReactDOM.render(
       <div>
         <Navbar />
         <Switch>
-          {/* <Route exact path='/' component={HomeScreen} /> */}
-          <Route exact path="/" component={HomeScreen} />
+          <Route exact path='/' component={LoginScreen} />
+          
           <Route path="/change_password/:id/:token" component={ChangePassword} />
           <Route path="/register" component={RegisterScreen} />
           <Route path="/edit/:id" component={TempEdit} />
           <Route path="/create" component={tempCreate} /> />
           <Route path="/view/:id" component={TempView} />
           <Route path="/login" component={LoginScreen} />
+          <Route path="/:id" component={HomeScreen} />
         </Switch>
       </div>
     </Router>

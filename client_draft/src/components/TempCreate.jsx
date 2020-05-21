@@ -110,6 +110,7 @@ export default class Temp extends Component {
   // state = { ...this.temp_state, editingItem: { type: "none" } };
   state = {
     title:"temp title",
+  
     height: 200,
     width: 200,
     backgroundColor: null,
@@ -285,7 +286,7 @@ export default class Temp extends Component {
 
       <Mutation
       mutation={ADD_LOGO}
-      onCompleted={() => this.props.history.push("/")}
+      onCompleted={() => this.props.history.push("/"+JSON.parse(window.localStorage.getItem('user'))._id)}
     >
       {(addLogo, { loading, error }) => (
       <div className="container">
@@ -323,11 +324,11 @@ export default class Temp extends Component {
              borderColor.value,
             parseInt(margin.value),
              parseInt(padding.value))
-
+                    console.log(JSON.parse(window.localStorage.getItem('user')))
 
                   addLogo({
                     variables: {
-                      owner:JSON.parse(window.localStorage.getItem('user'))["_id"]||"no user",
+                      owner:JSON.parse(window.localStorage.getItem('user'))._id||"no user",
                       title:title.value,
                        width:parseInt(width.value),
                        height:parseInt(height.value),

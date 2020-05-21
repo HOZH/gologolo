@@ -16,7 +16,7 @@ export default class Navbar extends React.Component {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                 <div className="container">
-                    <Link to={"/"} className="nav-item nav-link">Gologolo</Link>
+                    <Link to={"/"+JSON.parse(window.localStorage.getItem('user'))._id} className="nav-item nav-link">Gologolo</Link>
                     {/* <Link to="/admin" className="tester">databseTester</Link> */}
                     {/* {databaseTester} */}
                     {links}
