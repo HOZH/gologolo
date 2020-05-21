@@ -47,8 +47,16 @@ export default class RegisterScreen extends Component {
     }
     else{
         this.setState({mode:true})
-        window.localStorage.setItem('token',JSON.stringify(data.token))
+        console.log(data)
+        console.log(data.token)
+        console.log(data.token.token)
+        console.log(data.user)
+
+        // " "+data.token.token+" "
+        window.localStorage.setItem('token'," "+data.token.token+" ")
         window.localStorage.setItem('user',JSON.stringify(data.user))
+        this.props.history.push('/'+data.user._id)
+        
     }
     
     });
