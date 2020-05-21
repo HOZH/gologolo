@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Rnd} from "react-rnd";
 import Draggable, {DraggableCore} from 'react-draggable'; // Both at the same time
 import ReactDOM from 'react-dom';
+import base64url from 'base64url'
 
 
 export default class Item extends Component {
@@ -141,6 +142,8 @@ export default class Item extends Component {
                            >
                              <img
                                src={currentItem.url}
+                              // src={'data:image/png;base64,'+base64url.decode(currentItem.url)}
+
                                alt={currentItem.alt}
                                width={currentItem.imgWidth}
                                height={currentItem.imgHeight}

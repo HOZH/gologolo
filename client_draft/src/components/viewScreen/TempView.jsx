@@ -6,6 +6,9 @@ import gql from "graphql-tag";
 import { Query, Mutation }from "react-apollo";
 import {useMutation,useQuery} from '@apollo/react-hooks'
 // import QueryHelper from './QueryHelper'
+import html2canvas from 'html2canvas';
+import base64url from 'base64url'
+import domtoimage from 'dom-to-image';
 const GET_LOGO = gql`
   query logo($logoId: String!) {
 
@@ -34,6 +37,31 @@ const DELETE_LOGO = gql`
 let cLogo = null;
 
 export default class EditLogoScreen extends Component {
+
+  // download = e => {
+  //   console.log(e);
+  //   fetch(e, {
+  //     method: "GET",
+  //     mode: "cors",
+  //     headers: {
+  //       "Access-Control-Allow-Origin":"*"
+  //     }
+  //   })
+  //     .then(response => {
+  //       response.arrayBuffer().then(function(buffer) {
+  //         const url = window.URL.createObjectURL(new Blob([buffer]));
+  //         const link = document.createElement("a");
+  //         link.href = url;
+  //         link.setAttribute("download", "image.png"); //or any other extension
+  //         document.body.appendChild(link);
+  //         link.click();
+  //         console.log(23333)
+  //       });
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // };
     
     state = {
         title:"temp title",
@@ -51,9 +79,9 @@ export default class EditLogoScreen extends Component {
         ,need2Load :true
     };
 
-
+ handlePositionChange = ()=>{}
     handleSelect = ()=>{}
-
+    
     
   
       componentDidMount() {
@@ -132,16 +160,70 @@ export default class EditLogoScreen extends Component {
          </div>
          <h4 className="panel-title bg-danger text-white row">
            &nbsp;&nbsp;Create Logo
+        
          </h4>{" "}
+
        </div>
        <div className="panel-body row">
          <div className="col-2">
-         <div className="btn btn-success" onClick={()=>{
+
+         <div className="btn btn-success" id="p1" onClick={()=>{
            this.props.history.push(`/edit/`+this.props.match.params.id);
          }}>
                   edit
                 </div>
-                <div className="btn btn-success" onClick={this.addImage}>
+                <div className="btn btn-success" onClick={
+                  ()=>{
+
+       
+// this.download("http://placeimg.com/300/300")
+                      html2canvas(document.querySelector('#pic'),{
+                        allowTaint: true,
+                          useCORS: true,
+                        logging: true,
+                        proxy:"http://placeimg.com"
+                      }).then(function(canvas) {
+                  
+                          console.log(canvas);
+                          console.log(canvas.toDataURL())
+                          // console.log(base64url.decode())
+                          
+                          // saveAs(canvas.toDataURL(), 'file-name.png');
+
+                          // saveAs=(canvas.toDataURL, 'file-name.png')=> {
+
+                            var link = document.createElement('a');
+                            link.id='a99'
+                        
+                            if (typeof link.download === 'string') {
+                              console.log(1)
+
+                        
+                                link.href = canvas.toDataURL();
+                                link.download = 'file-name.png';
+                        
+                                //Firefox requires the link to be in the body
+                                document.body.appendChild(link);
+                        
+                                //simulate click
+                                link.click();
+                        
+                                //remove the link when done
+                                document.body.removeChild(link);
+                        
+                            } else {
+                              console.log(2)
+                                window.open(canvas.toDataURL());
+                        
+                            }
+                        
+                      }
+                      
+                      
+                      );
+                  // });
+                  }
+                }>
                   save
                 </div>
 
@@ -169,6 +251,7 @@ export default class EditLogoScreen extends Component {
          {/* {error && <p>Error :( Please try again</p>} */}
          <div className="col-7">
            <div
+           id='pic'
              onClick={() => {
                console.log("qwe");
               //  this.unselect();
