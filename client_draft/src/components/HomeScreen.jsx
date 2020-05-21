@@ -4,26 +4,47 @@ import '../App.css';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import Banner from './Banner'
+const GET_LOGOS_BY_USER = gql`
+  query logosByUser($owner:String!) {
 
-const GET_LOGOS = gql`
-query{
-  logos{
-    title,
-    _id,owner,items{type,text,color,fontSize,url,imgWidth,imgHeight,alt,id,z,x,y}
-    ,backgroundColor,borderRadius,
-    borderThickness,borderColor,
-    margin,
-    padding,lastUpdate
+    logosByUser(owner: $owner){
+        title,
+        owner,items{type,text,color,fontSize,url,imgWidth,imgHeight,alt,id,z,x,y}
+        ,backgroundColor,borderRadius,
+        borderThickness,borderColor,
+        height,
+        width,
+        margin,
+        padding,lastUpdate,
+        _id
+      }
+      
   }
-  }
-
 `;
+
 
 class HomeScreen extends Component {
 
+  componentWillUnmount() {
+    window.location.reload(true);
+    console.error("temp will unmount");
+  }
+
     render() {
+
+      let temp_token=window.localStorage.getItem('token')
+      temp_token=temp_token.substring(1,temp_token.length-1)
         return (
-            <Query pollInterval={500} query={GET_LOGOS}>
+            <Query
+            context={{
+              headers: {
+                authorization: temp_token
+              }
+            }}
+            
+            query={GET_LOGOS_BY_USER}
+            variables={{ owner: this.props.match.params.id }}
+            >
                 {({ loading, error, data }) => {
                     if (loading) return 'Loading...';
                     if (error) return `Error! ${error.message}`;
@@ -35,7 +56,7 @@ class HomeScreen extends Component {
                       <div className="container row">
                         <div className="col s4 bg-secondary text-white">
                           <h3>Recent Work</h3>
-                          {data.logos.map((logo, index) => (
+                          {data.logosByUser.map((logo, index) => (
                             <div
                               key={index}
                               className="bg-danger text-white"

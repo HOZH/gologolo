@@ -81,9 +81,9 @@ export default class LoginScreen extends Component {
     render() {
         let {auth, authError} = this.props;
         let temp =window.localStorage.getItem('user')
-        if (temp) {
-            return <Redirect to={'/'+(JSON.parse(temp._id))}/>;
-        }
+        // if (temp) {
+        //     return <Redirect to={'/'+(JSON.parse(temp._id))}/>;
+        // }
         
         return (
             <div className="container">

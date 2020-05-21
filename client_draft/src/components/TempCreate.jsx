@@ -282,9 +282,16 @@ export default class Temp extends Component {
       borderColor,
       margin,
       padding;
+      let temp_token=window.localStorage.getItem('token')
+      temp_token=temp_token.substring(1,temp_token.length-1)
     return (
 
       <Mutation
+      context={{
+        headers: {
+          authorization: temp_token
+        }
+      }}
       mutation={ADD_LOGO}
       onCompleted={() => this.props.history.push("/"+JSON.parse(window.localStorage.getItem('user'))._id)}
     >

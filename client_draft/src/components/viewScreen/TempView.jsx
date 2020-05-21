@@ -95,9 +95,8 @@ export default class EditLogoScreen extends Component {
         // console.log(temp)
       }
       componentWillUnmount() {
-        window.location.reload(true);
+        // window.location.reload(true);
         console.error("temp will unmount");
-        console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");
       }
      
     
@@ -121,6 +120,8 @@ export default class EditLogoScreen extends Component {
         //   this.setState({items:[...this.state.items,e]},console.log(this.state.items.length))
       }
     render() {
+      let temp_token=window.localStorage.getItem('token')
+      temp_token=temp_token.substring(1,temp_token.length-1)
         let 
     owner,
       title,
@@ -135,6 +136,11 @@ export default class EditLogoScreen extends Component {
       padding;
       return (
         <Query
+        context={{
+          headers: {
+            authorization: temp_token
+          }
+        }}
         query={GET_LOGO}
         variables={{ logoId: this.props.match.params.id }}
       >
@@ -229,16 +235,27 @@ export default class EditLogoScreen extends Component {
 
 
                 <Mutation
+                   context={{
+                    headers: {
+                      authorization: temp_token
+                    }
+                  }}
              mutation={DELETE_LOGO}
              key={this.props.match.params.id}
              
             
-             onCompleted={() => this.props.history.push("/")}
+            //  onCompleted={}
            >
              {(removeLogo, { loading, error }) => (
                   <div className="btn btn-danger" onClick={()=>{
            console.log(123)
            removeLogo({ variables: {id:this.props.match.params.id}})
+          //  this.props.history.push("/5ec4af58b0355227fca40fb9")
+           console.log(window.localStorage.getItem('user')._id)
+
+           this.props.history.push("/"+JSON.parse(window.localStorage.getItem('user'))._id)
+
+
          }}>
 
            

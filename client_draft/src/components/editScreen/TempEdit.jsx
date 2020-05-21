@@ -101,7 +101,6 @@ export default class EditLogoScreen extends Component {
       componentWillUnmount() {
         window.location.reload(true);
         console.error("temp will unmount");
-        console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");console.error("temp will unmount");
       }
       get_max_z_order = () => {
         let maxZ = -1;
@@ -307,6 +306,9 @@ export default class EditLogoScreen extends Component {
         //   this.setState({items:[...this.state.items,e]},console.log(this.state.items.length))
       }
     render() {
+
+        let temp_token=window.localStorage.getItem('token')
+        temp_token=temp_token.substring(1,temp_token.length-1)
         let 
     owner,
       title,
@@ -319,8 +321,15 @@ export default class EditLogoScreen extends Component {
       borderColor,
       margin,
       padding;
+
+      
       return (
         <Query
+        context={{
+            headers: {
+              authorization: temp_token
+            }
+          }}
           query={GET_LOGO}
           variables={{ logoId: this.props.match.params.id }}
         >
@@ -336,11 +345,16 @@ export default class EditLogoScreen extends Component {
             return (    
                
               <Mutation
+              context={{
+                headers: {
+                  authorization: temp_token
+                }
+              }}
                 mutation={UPDATE_LOGO}
                 key={data.logo._id}
                 onCompleted={(e) => {
   
-                  this.props.history.push(`/`);
+                  this.props.history.push(`/`+JSON.parse(window.localStorage.getItem('user'))._id);
                   this.force()
                 }}
               >
