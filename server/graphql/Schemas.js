@@ -147,6 +147,7 @@ const resolvers = {
       return LogoModel.findByIdAndUpdate(
         params.id,
         {
+          title: params.title,
           texts: params.texts,
           owner: params.owner,
           images: params.images,
