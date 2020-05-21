@@ -4,7 +4,7 @@ import Item from "../Item";
 import { v4 as uuidv4 } from "uuid";
 import gql from "graphql-tag";
 import { Query, Mutation }from "react-apollo";
-import {useMutation,useQuery} from '@apollo/react-hooks'
+
 // import QueryHelper from './QueryHelper'
 import html2canvas from 'html2canvas';
 import base64url from 'base64url'

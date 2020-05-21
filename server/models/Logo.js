@@ -1,17 +1,24 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
+
 
 var LogoSchema = new mongoose.Schema({
+  title:String,
   id: String,
-  text: String,
-  color: String,
-  fontSize: { type: Number, min: 2, max: 144 },
+  owner: String,
+  width: Number,
+  height: Number,
   backgroundColor: String,
+  borderRadius: Number,
+  borderThickness: Number,
   borderColor: String,
-  borderRadius: { type: Number, min: 0, max: 150 },
-  borderThickness: { type: Number, min: 0, max: 150 },
-  margin: { type: Number, min: 0, max: 60 },
-  padding: { type: Number, min: 0, max: 60 },
+  margin: Number,
+  padding: Number,
+  items: [mongoose.Schema.Types.Mixed],
   lastUpdate: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('Logo', LogoSchema);
+module.exports = {
+  LogoSchema: LogoSchema,
+  LogoModel: mongoose.model("Logo", LogoSchema),
+};
+// module.exports =  LogoSchema,

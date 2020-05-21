@@ -3,31 +3,63 @@ import { Link } from 'react-router-dom';
 import '../App.css';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
+import Banner from './Banner'
+import Navtemp from './navbar/Navtemp'
+const GET_LOGOS_BY_USER = gql`
+  query logosByUser($owner:String!) {
 
-const GET_LOGOS = gql`
-  {
-    logos {
-      _id
-      text
-      lastUpdate
-    }
+    logosByUser(owner: $owner){
+        title,
+        owner,items{type,text,color,fontSize,url,imgWidth,imgHeight,alt,id,z,x,y}
+        ,backgroundColor,borderRadius,
+        borderThickness,borderColor,
+        height,
+        width,
+        margin,
+        padding,lastUpdate,
+        _id
+      }
+      
   }
 `;
 
+
 class HomeScreen extends Component {
 
+  componentWillUnmount() {
+    window.location.reload(true);
+    console.error("temp will unmount");
+  }
+
     render() {
+
+      let temp_token=window.localStorage.getItem('token')
+      temp_token=temp_token.substring(1,temp_token.length-1)
         return (
-            <Query pollInterval={500} query={GET_LOGOS}>
+            <Query
+            context={{
+              headers: {
+                authorization: temp_token
+              }
+            }}
+            
+            query={GET_LOGOS_BY_USER}
+            variables={{ owner: this.props.match.params.id }}
+            >
                 {({ loading, error, data }) => {
                     if (loading) return 'Loading...';
                     if (error) return `Error! ${error.message}`;
 
+                    console.log(12345)
+                    console.log(data)
+
                     return (
-                      <div className="container row">
+                      <div className="container">
+                        <div className="row">
+                        <Navtemp/>
                         <div className="col s4 bg-secondary text-white">
                           <h3>Recent Work</h3>
-                          {data.logos.map((logo, index) => (
+                          {data.logosByUser.map((logo, index) => (
                             <div
                               key={index}
                               className="bg-danger text-white"
@@ -41,26 +73,24 @@ class HomeScreen extends Component {
                                 className=" text-white"
                                 to={`/view/${logo._id}`}
                               >
-                                {logo.text === "" ? "unnamed logo" : logo.text}
+                                {logo.title === "" ? "unnamed logo" : logo.title}
                               </Link>
                             </div>
                           ))}
                         </div>
                         <div className="col s8">
-                          <div id="home_banner_container">
-                            Gologolo
-                            <br />
-                            @Hong
-                          </div>
+                          <Banner/>
+                   
                           <div>
                             <Link
-                              class="btn btn-primary col"
+                              className="btn btn-primary col"
                               id="add_logo_button"
                               to="/create"
                             >
                               Add Logo
                             </Link>
                           </div>
+                        </div>
                         </div>
                       </div>
                     );
