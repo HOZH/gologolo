@@ -1,4 +1,3 @@
-
 import React, { Component } from "react";
 
 export default class ChangePassword extends Component {
@@ -20,7 +19,6 @@ export default class ChangePassword extends Component {
 
   doSubmit = (e) => {
     e.preventDefault();
-    // console.log(123);
 
     fetch("http://localhost:3000/users/change_password", {
       method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -29,7 +27,6 @@ export default class ChangePassword extends Component {
       headers: {
         // "Access-Control-Allow-Origin":"*",
         "Content-Type": "application/json",
-        // 'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: JSON.stringify({
         email: this.state.email,

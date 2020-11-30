@@ -1,36 +1,37 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo';
-import { BrowserRouter as Router, Route,Switch } from 'react-router-dom';
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "react-apollo";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import * as serviceWorker from "./serviceWorker";
 
 // THESE ARE OUR REACT SCREENS, WHICH WE WILL ROUTE HERE
-import HomeScreen from './components/HomeScreen';
+import HomeScreen from "./components/HomeScreen";
 
-import tempCreate from './components/TempCreate'
-import Navbar from './components/navbar/Navtemp'
-import LoginScreen from './components/loginScreen/LoginScreen'
-import RegisterScreen from './components/registerScreen/RegisterScreen'
-import ChangePassword from './components/ChangePassword'
-import TempEdit from './components/editScreen/TempEdit'
-import TempView from './components/viewScreen/TempView'
+import tempCreate from "./components/CreateLogoScreen";
+import LoginScreen from "./components/loginScreen/LoginScreen";
+import RegisterScreen from "./components/registerScreen/RegisterScreen";
+import ChangePassword from "./components/ChangePassword";
+import TempEdit from "./components/editScreen/EditScreen";
+import TempView from "./components/viewScreen/ViewScreen";
 
-const client = new ApolloClient({ uri: 'http://localhost:3000/graphql' });
+const client = new ApolloClient({ uri: "http://localhost:3000/graphql" });
 
 ReactDOM.render(
   <ApolloProvider client={client}>
     <Router>
       <div>
-
         <Switch>
-          <Route exact path='/' component={LoginScreen} />
-          
-          <Route path="/change_password/:id/:token" component={ChangePassword} />
+          <Route exact path="/" component={LoginScreen} />
+
+          <Route
+            path="/change_password/:id/:token"
+            component={ChangePassword}
+          />
           <Route path="/register" component={RegisterScreen} />
           <Route path="/edit/:id" component={TempEdit} />
-          <Route path="/create" component={tempCreate} /> />
+          <Route path="/create" component={tempCreate} />
           <Route path="/view/:id" component={TempView} />
           <Route path="/login" component={LoginScreen} />
           <Route path="/:id" component={HomeScreen} />
