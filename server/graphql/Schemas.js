@@ -1,8 +1,7 @@
-
-var { LogoModel } = require("../models/Logo");
-var UserModel = require("../models/User");
+var { LogoModel } = require("../models/logo");
+var UserModel = require("../models/user");
 const { makeExecutableSchema } = require("apollo-server");
-var UserModel = require("../models/User");
+var UserModel = require("../models/user");
 
 const typeDefs = `
 

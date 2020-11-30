@@ -1,8 +1,7 @@
 var mongoose = require("mongoose");
 
-
 var LogoSchema = new mongoose.Schema({
-  title:String,
+  title: String,
   id: String,
   owner: String,
   width: Number,
@@ -21,4 +20,3 @@ module.exports = {
   LogoSchema: LogoSchema,
   LogoModel: mongoose.model("Logo", LogoSchema),
 };
-// module.exports =  LogoSchema,

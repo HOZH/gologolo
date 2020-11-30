@@ -5,10 +5,9 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 var graphqlHTTP = require("express-graphql");
-var schema = require("./graphql/Schemas");
+var schema = require("./graphql/schemas");
 var cors = require("cors");
 const passport = require("passport");
-
 
 mongoose
   .connect("mongodb://localhost/gql_tester", {
@@ -18,12 +17,9 @@ mongoose
   .then(() => console.log("connection successful"))
   .catch((err) => console.error(err));
 
-
-// // Must first load the models
-// require('./models/user');
-
+// Must first load the models
 // Pass the global passport object into the configuration function
-require('./config/passport')(passport);
+require("./config/passport")(passport);
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -40,32 +36,24 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, "public")));
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader("Access-Control-Allow-Origin", "*");
   next();
 });
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-app.use( cors());
+app.use(cors());
 app.use(
   "/graphql",
   cors(),
   passport.authenticate("jwt", { session: false }),
-  // (req,res)=>{
-  //   console.log(req.body)
-  (graphqlHTTP({
-      schema: schema,
-      rootValue: global,
-      graphiql: true,
-    }))
-  //   (req,res)
-  // }
+
+  graphqlHTTP({
+    schema: schema,
+    rootValue: global,
+    graphiql: true,
+  })
 );
-// let allowCrossDomain = function(req, res, next) {
-//   res.header('Access-Control-Allow-Origin', "*");
-//   res.header('Access-Control-Allow-Headers', "*");
-//   next();
-// }
-// app.use(allowCrossDomain);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
