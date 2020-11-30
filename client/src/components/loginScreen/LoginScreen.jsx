@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 
-import { Redirect } from "react-router-dom";
-import Banner from "../Banner";
 import NavBar from "../navbar/NavBar";
 
 export default class LoginScreen extends Component {
@@ -55,9 +53,8 @@ export default class LoginScreen extends Component {
     })
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data)
-        if (data.token == "false") {
-          if (data.reason == "email") this.setState({ mode: "invalid-email" });
+        if (data.token === "false") {
+          if (data.reason === "email") this.setState({ mode: "invalid-email" });
           else {
             this.setState({ mode: "invalid-password" });
           }
@@ -85,8 +82,7 @@ export default class LoginScreen extends Component {
   };
 
   render() {
-    let { auth, authError } = this.props;
-    let temp = window.localStorage.getItem("user");
+    let { authError } = this.props;
 
     return (
       <div className="container">
@@ -126,7 +122,7 @@ export default class LoginScreen extends Component {
                 </div>
               ) : null}
             </div>
-            {this.state.mode == "ok" ? null : this.state.mode ==
+            {this.state.mode === "ok" ? null : this.state.mode ===
               "invalid-email" ? (
               <p>email not found in the database</p>
             ) : (

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Draggable, { DraggableCore } from "react-draggable"; // Both at the same time
+import Draggable from "react-draggable"; // Both at the same time
 
 export default class Item extends Component {
   state = {
@@ -28,9 +28,6 @@ export default class Item extends Component {
 
   render() {
     const currentItem = this.props.item;
-    const dragHandlers = {
-      onStop: this.handleStop,
-    };
 
     return (
       <div

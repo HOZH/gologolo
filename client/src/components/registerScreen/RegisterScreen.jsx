@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 
-import { Redirect } from "react-router-dom";
 import Banner from "../Banner";
 import NavBar from "../navbar/NavBar";
 
@@ -42,7 +41,7 @@ export default class RegisterScreen extends Component {
       .then((data) => {
         console.log(data);
 
-        if (data.token == "false") {
+        if (data.token === "false") {
           this.setState({ mode: false });
         } else {
           this.setState({ mode: true });

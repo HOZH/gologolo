@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import Item from "../Item";
 import { v4 as uuidv4 } from "uuid";
 import gql from "graphql-tag";
@@ -72,8 +71,6 @@ const UPDATE_LOGO = gql`
     }
   }
 `;
-
-let cLogo = null;
 
 export default class EditLogoScreen extends Component {
   state = {
@@ -170,12 +167,12 @@ export default class EditLogoScreen extends Component {
   };
 
   handleSelect = (item) => {
-    let current = this.state.items.find((e) => e.id == item.id);
+    let current = this.state.items.find((e) => e.id === item.id);
     current.z = this.get_max_z_order() + 1;
     this.setState({
       editingItem: current,
       items: this.state.items.map((e) => {
-        if (e.id == current.id) e.z = current.z;
+        if (e.id === current.id) e.z = current.z;
 
         return e;
       }),
@@ -194,7 +191,7 @@ export default class EditLogoScreen extends Component {
       current[event.target.name] = event.target.value;
     }
     const temp = this.state.items.map((e) => {
-      if (e.id == current.id) e = { ...current };
+      if (e.id === current.id) e = { ...current };
 
       return e;
     });
@@ -253,11 +250,9 @@ export default class EditLogoScreen extends Component {
   render() {
     let temp_token = window.localStorage.getItem("token");
     temp_token = temp_token.substring(1, temp_token.length - 1);
-    let owner,
-      title,
+    let title,
       width,
       height,
-      items,
       backgroundColor,
       borderRadius,
       borderThickness,
@@ -276,7 +271,6 @@ export default class EditLogoScreen extends Component {
         variables={{ logoId: this.props.match.params.id }}
       >
         {({ loading, error, data }) => {
-          cLogo = data;
           if (loading) return "Loading...";
           if (error) return `Error! ${error.message}`;
 
@@ -349,7 +343,7 @@ export default class EditLogoScreen extends Component {
                             this.force();
                           }}
                         >
-                          {this.state.editingItem.type == "text" ? (
+                          {this.state.editingItem.type === "text" ? (
                             <React.Fragment>
                               <div className="form-group">
                                 <label

@@ -1,13 +1,10 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import Item from "../Item";
-import { v4 as uuidv4 } from "uuid";
 import gql from "graphql-tag";
 import { Query, Mutation } from "react-apollo";
 
 import html2canvas from "html2canvas";
-import base64url from "base64url";
-import domtoimage from "dom-to-image";
+
 import NavBar from "../navbar/NavBar";
 
 const GET_LOGO = gql`
@@ -49,8 +46,6 @@ const DELETE_LOGO = gql`
   }
 `;
 
-let cLogo = null;
-
 export default class EditLogoScreen extends Component {
   state = {
     title: "temp title",
@@ -83,17 +78,7 @@ export default class EditLogoScreen extends Component {
   render() {
     let temp_token = window.localStorage.getItem("token");
     temp_token = temp_token.substring(1, temp_token.length - 1);
-    let owner,
-      title,
-      width,
-      height,
-      items,
-      backgroundColor,
-      borderRadius,
-      borderThickness,
-      borderColor,
-      margin,
-      padding;
+    let borderRadius, borderThickness, margin, padding;
     return (
       <Query
         context={{

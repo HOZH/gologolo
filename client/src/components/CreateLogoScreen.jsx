@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import Item from "./Item";
 import { v4 as uuidv4 } from "uuid";
 import gql from "graphql-tag";
@@ -184,12 +183,12 @@ export default class Temp extends Component {
   };
 
   handleSelect = (item) => {
-    let current = this.state.items.find((e) => e.id == item.id);
+    let current = this.state.items.find((e) => e.id === item.id);
     current.z = this.get_max_z_order() + 1;
     this.setState({
       editingItem: current,
       items: this.state.items.map((e) => {
-        if (e.id == current.id) e.z = current.z;
+        if (e.id === current.id) e.z = current.z;
 
         return e;
       }),
@@ -229,11 +228,9 @@ export default class Temp extends Component {
     this.setState({ editingItem: current });
   };
   render() {
-    let owner,
-      title,
+    let title,
       width,
       height,
-      items,
       backgroundColor,
       borderRadius,
       borderThickness,
@@ -301,7 +298,7 @@ export default class Temp extends Component {
                       padding.value = "";
                     }}
                   >
-                    {this.state.editingItem.type == "text" ? (
+                    {this.state.editingItem.type === "text" ? (
                       <React.Fragment>
                         <div className="form-group">
                           <label style={{ whiteSpace: "pre" }} htmlFor="text">
